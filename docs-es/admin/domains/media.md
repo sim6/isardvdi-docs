@@ -1,26 +1,31 @@
-<h1>Administer Media</h1>
+<h1>Administrar medios</h1>
 
 [TOC]
 
-# Upload media
+# Subir medios
 
-There is an **Add new** button that will open a new form to make IsardVDI download media from an URL:
+Hay un botón Agregar nuevo que abrirá un nuevo formulario para que IsardVDI descargue medios desde una URL:
 
-- **URL**: Paste here any ISO file download URL or floppy. (Floppies can be used to add storage drivers while installing some OSs in hard disk).
-- **NAME**: It will propose by default the file name extracted from the URL. Change it if you prefer another one.
-- **TYPE**: Select the type of media being uploaded (ISO/CDROM or Floppy)
-- **DESCRIPTION**: Optional
-- **ALLOWS**: Allowed roles, categories, groups and users to use this media. Please refer to [allows form](../../user/allows.md#allows-form).
+- **URL**: Pegue aquí cualquier URL de descarga de archivos ISO o disquete. (Los disquetes se pueden usar para agregar controladores de almacenamiento al instalar algunos sistemas operativos en el disco duro).
 
-When you click the **Upload** button it will start and you will see progress.
+- **NOMBRE**: Propondrá por defecto el nombre del archivo extraído de la URL. Cámbiala si prefieres otra.
+- **TIPO**: Seleccione el tipo de medio que se está cargand o (ISO / CDROM o disquete)
+- **DESCRIPCIÓN**: Opcional
+- **PERMITE**: Los roles, categorías, grupos y usuarios permitidos usar este medio. Por favor refiérase a permite el formulario. (../../user/allows.md#allows-form).
 
-## Uploading media from local storage
+Cuando hagas clic en el botón **Cargar**, se iniciará y verás el progreso.
 
-If you have your ISO locally in your storage and you want to upload it to IsardVDI you can create a simple webserver which url to the file can be filled in the upload media form in IsardVDI.
 
-**Python webserver example**
+## Carga de medios desde el almacenamiento local
 
-If you have *mycdrom.iso* file in a folder you can start a python webserver:
+
+Si tiene su ISO localmente en su almacenamiento y desea subirlo a IsardVDI, puede crear un servidor web simple que pueda completar la url del archivo en el formulario de medios de carga en IsardVDI.
+
+
+**Ejemplo de servidor web Python**
+
+Si tiene el archivo *mycdrom.iso* en una carpeta, puede iniciar un servidor web de Python:
+
 
 ```
 $ ls .
@@ -30,4 +35,3 @@ Serving HTTP on 0.0.0.0 port 8000 ...
 ```
 
 The URL to download mycdrom.iso in IsardVDI upload media will be **http://localhost:8000/mcdrom.iso**
-
