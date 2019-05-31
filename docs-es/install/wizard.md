@@ -1,69 +1,71 @@
-<h1>Wizard</h1>
+<h1>Asistente</h1>
 
 [TOC]
 
-# Steps
+# Pasos
 
-Connect with your browser to your IsardVDI server on [https://<ip|dns>](https://<ip|dns>) and follow wizard.
+Conéctese con su navegador a su servidor IsardVDI en https://<ip|dns> y siga el asistente.
 
-The browser will ask to to accept the self-signed generated certificate. Add an exception and add the certificate to trusted certificates and it will open the wizard.
+
+El navegador le pedirá que acepte el certificado generado autofirmado. Agregue una excepción, agregue el certificado a los certificados de confianza y se abrirá el asistente.
 
 ![](../images/wizard/firefox-untrusted.jpg)
 
-As the wizard opens a modal form will show license agreement and a checkbox already checked by default that will allow your IsardVDI installation to automatically download demo desktops during the wizard.
+A medida que el asistente abre un formulario modal, se mostrará el acuerdo de licencia y una casilla de verificación ya activada de forma predeterminada que permitirá a su instalación de IsardVDI descargar automáticamente los escritorios de demostración durante el asistente.
 
 ![](../images/wizard/license.png)
 
-Follow steps to finish your IsardVDI initial configuration.
+Siga los pasos para terminar su configuración inicial de IsardVDI.
 
-## 1. Configuration
+## 1. Configuración
 
-Wizard will detect configuration automatically from **isard.conf.docker**. Nothing may be changed here.
+El asistente detectará la configuración automáticamente desde isard.conf.docker. Nada puede ser cambiado aquí.
 
 ![](../images/wizard/1.png)
 
-Click on **Next** button.
+Haga clic en el botón **Siguiente**.
 
-## 2. Database
+## 2. Base de datos
 
-Database must be populated now. Click on **Populate database** button and wait till it finishes.
+La base de datos debe estar poblada ahora. Haga clic en el botón Rellenar base de datos y espere hasta que termine.
 
 ![](../images/wizard/2.png)
 
-Click on **Next** button when it finishes database populate.
+Haga clic en el botón **Siguiente** cuando termine de completar la base de datos.
 
-## 3. Password
+## 3. Contraseña
 
-Wizard forces to set up a new **admin** user password. Click on **Change password** button and fill it twice. Click on **Update** button to close password update form.
+El asistente obliga a configurar una nueva contraseña de usuario administrador. Haga clic en el botón Cambiar contraseña y rellénelo dos veces. Haga clic en el botón Actualizar para cerrar el formulario de actualización de contraseña.
 
 ![](../images/wizard/3.png)
 
-Click on **Next** button when password has been updated.
+Haga clic en el botón **Siguiente** cuando la contraseña se haya actualizado.
 
-## 4. Hypervisor
+## 4. Hipervisor
 
-IsardVDI comes with a dockerized KVM hypervisor and now the wizard will check if it is online.
+IsardVDI viene con un hipervisor KVM acoplado y ahora el asistente comprobará si está en línea.
 
 ![](../images/wizard/5.png)
 
 Click on **Next** button as it should be up and running already.
 
-## 5. Engine
+## 5. Motor
 
-Wizard checks for IsardVDI engine to be running in background. If it fails, let some seconds to be up and click on **Check again** button. When it finds the running engine it will continue to next step.
+El asistente comprueba si el motor IsardVDI se ejecuta en segundo plano. Si falla, deje pasar unos segundos y haga clic en el botón Comprobar nuevamente. Cuando encuentre el motor en marcha, continuará con el siguiente paso.
 
 ![](/home/darta/jvinolas/docs/docs/images/wizard/4.png)
 
-Click on **Next** button if already found the engine.
+Haga clic en el botón **Siguiente** si ya encontró el motor.
 
-## 6. Updates
+## 6. Actualizaciones
 
-If you checked the register checkbox in the first modal it will show a list of resources online available to be downloaded. You can register later from updates menu.
+Si marcó la casilla de verificación de registro en el primer modal, se mostrará una lista de recursos en línea disponibles para descargar. Puede registrarse más tarde desde el menú de actualizaciones.
+
 
 ![](../images/wizard/6.png)
 
-Click on **Finish** button and wait for the main login IsardVDI page to come up. Login with **admin** username and the password you provided in step 3.
+Haga clic en el botón Finalizar y espere a que aparezca la página principal de inicio de sesión de IsardVDI. Inicie sesión con el nombre de usuario de administrador y la contraseña que proporcionó en el paso 3.
 
 ![](../images/wizard/login.png)
 
-Go now to [first steps](first-steps.md)
+Ve a [first steps](first-steps.md)
