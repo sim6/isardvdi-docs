@@ -1,1 +1,1 @@
-# Administering templates
+# Administrando plantillas
