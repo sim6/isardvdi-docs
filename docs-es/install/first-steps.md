@@ -1,37 +1,38 @@
-<h1>First steps</h1>
+<h1>Primeros pasos</h1>
 
-Once you have IsardVDI working you will be able to test demo desktops from updates, but also create new ones with any ISO you can upload. Go to dektops menu to start playing.
+Una vez que tenga IsardVDI funcionando, podrá probar los escritorios de demostración a partir de las actualizaciones, pero también crear otros nuevos con cualquier ISO que pueda cargar. Ir al menú dektops para empezar.
 
 [TOC]
 
-# Demo desktops
+# Escritorios de demostración
 
-In your **Desktops** menu you will find two test domains already downloaded during the wizard (if you checked to get demo desktops).
+En el menú de **escritorios**, encontrará dos dominios de prueba que ya se descargaron durante el asistente (si marcó para obtener los escritorios de demostración).
 
-- **TetrOS**: A falling blocks game written that fits into the Master Boot Record. No bootloader or operating system is needed to rotate blocks and clear rows!
-- **ZXSpectrum**: Was one of most successful 8-bit machines of all time.
+- **TetrOS**: Un juego de caída de bloques escrito que encaja en el Master Boot Record. ¡No se necesita un gestor de arranque o sistema operativo para rotar bloques y borrar filas!
+- **ZXSpectrum**: Fue una de las máquinas de 8 bits más exitosas de todos los tiempos.
 
 ![](../images/first-steps/demo-desktops.png)
 
-You can start it and a modal form will show up to select the viewer you want to use. You can try it with browser viewer options (spice or vnc) without installing any viewer. For best performance connect with spice client (refer to [viewer section](../user/desktops.md#connect-to-viewer))
+Puede iniciarlo y aparecerá un formulario modal para seleccionar el visor que desea utilizar. Puede probarlo con las opciones del visor del navegador (spice o vnc) sin instalar ningún visor. Para un mejor rendimiento, conéctese con el cliente de especias (refer to [viewer section](../user/desktops.md#connect-to-viewer))
 
-# Updates
+# Actualizaciones
 
-From **updates** menu administrator can download example desktops (domains) that we have already optimized.
+Desde las actualizaciones, el administrador del menú puede descargar escritorios de ejemplo (dominios) que ya hemos optimizado.
 
 ![](../images/first-steps/updates.png)
 
-All domains that can be downloaded from updates have by default the user **isard** and the password **pirineus**. The isard user has also superuser privileges.
+Todos los dominios que pueden descargarse de las actualizaciones tienen, de forma predeterminada, el nombre de usuario y la contraseña pirineus. El usuario isard también tiene privilegios de superusuario.
 
-# Create your desktop
+# Crea tu escritorio
 
-Administrators and Advanced Users are able to create their own desktops by uploading an ISO install file to Media. Administrators can make use of [User Media](../user/media.md#upload-media) menu and also [Administrator Domain Media](../admin/domains/media.md#upload-media) menu.
+Los administradores y usuarios avanzados pueden crear sus propios escritorios cargando un archivo de instalación ISO a los medios. Los administradores pueden hacer uso del menú User Media y también del menú Administrator Domain Media.
 
-From the [User Media](../user/media.md#upload-media) menu click on **+Add new** button and a modal form will open where you can put the web URL with the ISO you want to download.
+
+Desde el menú User Media, haga clic en el botón + Agregar nuevo y se abrirá un formulario modal donde puede colocar la URL de la web con el ISO que desea descargar.
 
 ![](../images/first-steps/media-upload.png)
 
-When it finished downloading you will be able to create a new desktop booting from this ISO file clicking in the green desktop icon that will be shown beside the downloaded file.
+Cuando finalice la descarga, podrá crear un nuevo inicio de escritorio desde este archivo ISO haciendo clic en el icono verde del escritorio que se mostrará junto al archivo descargado.
 
 ![](../images/first-steps/media-downloaded.png)
 
@@ -39,44 +40,44 @@ Now fill in the modal form to create your desktop.
 
 ![](../images/first-steps/create-desktop.png)
 
-- Fill in the **name** and optional **description**
-- Select an **Os teplate** from the list (you can get more from updates menu). It should be as similar as possible to the system you are going to install.
-- Select all the **hardware** you want your new desktop to have. You are going to boot from the downloaded ISO, so do not modify the ISO/CD boot.
-- If it is a Win install you may check the Win install checkbox (you have details in [Windows guest](first-steps.md#win-guest))
+- Rellene el nombre y la descripción opcional.
+- Seleccione una plantilla de sistema operativo de la lista (puede obtener más información del menú de actualizaciones). Debe ser lo más similar posible al sistema que va a instalar.
+- Seleccione todo el hardware que desea que tenga su nuevo escritorio. Va a arrancar desde el ISO descargado, así que no modifique el arranque de ISO / CD.
+- Si es una instalación de Win, puede marcar la casilla de verificación de instalación de Win (tiene detalles en el invitado de Windows) (first-steps.md#win-guest))
 
-After that you should see your new created desktop in the **Desktops** menu. Start it and your ISO install should come up. Remember to change boot to hard disk when you finish installing it from the desktop details.
+Después de eso, debería ver su nuevo escritorio creado en el menú Escritorios. Inícielo y su instalación ISO debería aparecer. Recuerde cambiar el arranque al disco duro cuando termine de instalarlo desde los detalles del escritorio.
 
-## Linux guest
+## Invitado de Linux
 
-Just [upload an ISO](../admin/domains/media.md#upload-media)  to IsardVDI system using the *Add new* top right button in Media menu. When it finishes uploading a desktop icon will be shown to the right of the uploaded file. That desktop button icon will open a [new desktop form](../user/media.md#create-new-desktop-from-uploaded-media)  that will create an install from your linux ISO.
+Simplemente cargue un ISO en el sistema IsardVDI usando el botón Agregar nuevo arriba a la derecha en el menú Medios. Cuando termine de cargar, se mostrará un icono de escritorio a la derecha del archivo cargado. El ícono del botón del escritorio abrirá un nuevo formulario de escritorio que creará una instalación desde su linux ISO.
 
-Once you finish installing it, shutdown guest and go to [edit desktop properties](../user/desktops.md#edit-desktop) and change boot device from CD/DVD to HARD DISK.
+Una vez que termine de instalarlo, cierre el invitado y vaya a editar las propiedades del escritorio y cambie el dispositivo de arranque de CD / DVD a DISCO DURO.
 
-## Win guest
+## Ganar invitado
 
-Follow the same process used for a Linux Guest but, for best Win guest performance, you will need to add some drivers manually before starting the creation steps:
+Siga el mismo proceso utilizado para un invitado de Linux pero, para obtener el mejor rendimiento de invitado de Win, deberá agregar algunos controladores manualmente antes de comenzar los pasos de creación:
 
-1. From *Uploads* menu download the virtio win ISO and wait till it finishes. This special ISO has Virtio and QXL graphics drivers for Win.
-2. [upload a Win ISO](../user/media.md#upload-media)  to IsardVDI . If you want to upload it from a local computer [start a simple webserver](../user/media.md#uploading-media-from-local-storage) to serve your ISO fle an upload to IsardVDI.
-3. Now go to create a new desktop from the desktop icon button next to your media downloaded iso and fill [new desktop form](../user/media.md#create-new-desktop-from-uploaded-media). Be sure to tick *this is a win install iso* checkbox and select appropiate hardware template according to the Win version being installed.
+1. Desde el menú Cargas, descargue el virtio win ISO y espere hasta que termine. Este ISO especial tiene controladores de gráficos Virtio y QXL para Win.
 
-During installation you will have both cd/dvd ISO files available, your Win install and the Virtio Drivers. That will allow you to add Virtio Storage drivers during install and get maximum performance.
+2. Subir una ISO ganadora a IsardVDI. Si desea cargarlo desde una computadora local, inicie un servidor web simple para servir a su archivo ISO y subirlo a IsardVDI.
+3. Ahora vaya a crear un nuevo escritorio desde el botón del ícono del escritorio al lado de su contenido multimedia descargado y complete el nuevo formulario de escritorio. Asegúrese de marcar esta casilla de verificación Win Install iso y seleccione la plantilla de hardware adecuada de acuerdo con la versión de Win que se está instalando.
 
-Once you finish installing it remember to install inside Win guest all the other drivers contained in Virtio Drivers ISO. After that you can remove all the ISOs from your desktop by [editing desktop properties](../user/desktops.md#edit-desktop) and change boot device from CD/DVD to HARD DISK.
+Durante la instalación, tendrá disponibles los archivos ISO de cd / dvd, su instalación de Win y los controladores de Virtio. Eso le permitirá agregar controladores de almacenamiento de Virtio durante la instalación y obtener el máximo rendimiento.
 
-# Template creation
+Una vez que termine de instalarlo, recuerde instalar en Win guest todos los demás controladores contenidos en Virtio Drivers ISO. Después de eso, puede eliminar todos los ISO de su escritorio editando las propiedades del escritorio y cambiando el dispositivo de arranque de CD / DVD a DISCO DURO.
 
-One of the strengths of IsardVDI is the quick creation and sharing of templates. It's template system has been optimized to be as quick as possible. You will have your template ready to be shared within a few seconds.
+# Creación de plantillas
 
-When you finished installing and configuring your desktop, shut it down correctly. **Check twice that you didn't let any personal information in the system (i.e. browser) as it will be shared as it is with other system users!!**
+Uno de los puntos fuertes de IsardVDI es la creación y el intercambio rápidos de plantillas. Su sistema de plantillas ha sido optimizado para ser lo más rápido posible. Tendrás tu plantilla lista para ser compartida en unos pocos segundos.
 
-Open the desktop details and you will find a **Template it** button that will open a modal form to fill the template information.
+Cuando termine de instalar y configurar su escritorio, apáguelo correctamente. ¡Comprueba dos veces que no dejaste ninguna información personal en el sistema (es decir, el navegador) ya que se compartirá con otros usuarios del sistema!
+
+Abra los detalles del escritorio y encontrará un botón Template it que abrirá un formulario modal para completar la información de la plantilla.
 
 ![](../images/first-steps/template-form.png)
 
-When you create the template you will find it in **Templates** menu. This template will not follow anymore your desktop, so you can continue using your desktop but nothing will change in the created template.
+Cuando crees la plantilla, la encontrarás en el menú Plantillas. Esta plantilla ya no seguirá a su escritorio, por lo que puede continuar usando su escritorio pero nada cambiará en la plantilla creada.
 
-You can create it as a *Template* type or a *Base* type one. The only difference is the base path where it will be stored in disk.
+Puede crearlo como un tipo de plantilla o un tipo de base. La única diferencia es la ruta base donde se almacenará en el disco.
 
-You can create now as many desktops identical to that template as you want! And also your system users, within seconds!
-
+¡Ahora puede crear tantos escritorios idénticos a esa plantilla como desee! Y también los usuarios de su sistema, en segundos!
