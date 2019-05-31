@@ -1,22 +1,22 @@
-<h1>Quotas</h1>
+<h1>Cuotas</h1>
 
-The quotas can limit the resources used by each role, category, group or user individually.
+Las cuotas pueden limitar los recursos utilizados por cada rol, categoría, grupo o usuario individualmente.
 
 [TOC]
 
-# Types of quotas
+# Tipos de cuotas
 
-There are a set of quotas that can be modified:
+Hay un conjunto de cuotas que se pueden modificar:
 
-- **Desktops**: Maximum number of desktops that can be created.
-- **Running:**: Maximum number of desktops that the user can have running at the same time.
-- **Templates**: Maximum number of templates that the user can create from their desktops.
-- **Media** (or Isos): Maximum number of media (isos/floppies) that the user can upload to the system.
-- **CPUs**: Maximum number of virtual CPUs that can be set to a desktop.
-- **Memory**: Maximum memory in MB that can be set to a desktop.
+- **Escritorios**: Número máximo de escritorios que se pueden crear.
+- **En ejecución**: La cantidad máxima de escritorios que el usuario puede ejecutar al mismo tiempo..
+- **Plantillas**: Número máximo de plantillas que el usuario puede crear desde sus escritorios.
+- **Media** (or Isos): Número máximo de medios (isos / disquetes) que el usuario puede cargar en el sistema
+- **CPUs**: Número máximo de CPU virtuales que se pueden configurar en un escritorio.
+- **Memoria**: Memoria máxima en MB que se puede configurar en un escritorio.
 
-# Effective quotas for user
+# Cuotas efectivas para el usuario.
 
-A user is always being classified within a role, category and group, in that order of hierarchical priority. This means that the effective quotas for a user will be the most restrictive from top to down.
+Un usuario siempre se clasifica dentro de un rol, categoría y grupo, en ese orden de prioridad jerárquica. Esto significa que las cuotas efectivas para un usuario serán las más restrictivas de arriba a abajo.
 
-If we do modify quota for a user individually, then that quota will override the one that had before based on role, category and group hierarchy.
+Si modificamos la cuota para un usuario individualmente, entonces esa cuota anulará la que tenía anteriormente basada en la jerarquía de roles, categorías y grupos.
