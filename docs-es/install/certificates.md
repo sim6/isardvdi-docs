@@ -1,79 +1,79 @@
-<h1>Certificates</h1>
+<h1>Certificados</h1>
 
-SSL certificates should be used to secure web access and connections to virtual desktops with viewers. IsardVDI will generate a default self signed generic certificate when installing from the first time. Also, if no certificate present it will generate a new self signed to make use of it by default. That's why browsers will ask for certificate acceptance on first access to IsardVDI web.
+Los certificados SSL deben utilizarse para asegurar el acceso web y las conexiones a escritorios virtuales con los espectadores. IsardVDI generará un certificado genérico autofirmado predeterminado cuando se instala desde la primera vez. Además, si no hay un certificado presente, se generará un nuevo autofirmado para utilizarlo de forma predeterminada. Es por eso que los navegadores solicitarán la aceptación del certificado en el primer acceso a la web de IsardVDI.
 
 [TOC]
 
-# Manage certificates
+# Gestionar certificados
 
-Certificates are stored in path **/opt/isard/certs/default** where it can be replaced by new ones. The certificates need to be as follows:
+Los certificados se almacenan en path /opt/isard/certs/ default, donde pueden ser reemplazados por nuevos. Los certificados deben ser los siguientes:
 
-- **server-cert.pem**: It is the full chain of certificate with root cert included.
-- **server-key.pem**: It is the server host key.
+- **server-cert.pem**: Es la cadena completa de certificados con certificado raíz incluido.
+- **server-key.pem**: Es la clave del servidor.
 
-The ca-cert.pem will be readed from existing server-cert.pem so be aware that the server-cert.pem must contain in first position the server certificate and after that one the chain of validation entity certificates (chain)
+El ca-cert.pem se leerá desde el servidor-cert.pem existente, así que tenga en cuenta que el servidor-cert.pem debe contener en primera posición el certificado del servidor y después de eso la cadena de certificados de la entidad de validación (cadena)
 
-## Commercial certificate
+## Certificado comercial
 
-Always bring down IsardVDI before proceding to replace certificate:
+Siempre desactive IsardVDI antes de proceder a reemplazar el certificado:
 
 ```
 docker-compose down
 ```
 
-- **server-cert.pem**: You could rename de fullchain given by your cert provider  to be server-cert.pem or you can concatenate server certificate with chain: **`cat myserver.pem ca-chain.pem > server-cert.pem`**
-- **server-key.pem**:  Usually will have that key in a file already. Just rename it.
+- **server-cert.pem**: puede cambiar el nombre de fullchain que le da su proveedor de certificados para que sea server-cert.pem o puede concatenar el certificado del servidor con chain **`cat myserver.pem ca-chain.pem > server-cert.pem`**
+- **server-key.pem**: Por lo general, esa clave ya estará en un archivo. Solo renombralo
 
-Put those certificates with correct name in **/opt/isard/certs/default** (replace everythig that it is already in that folder) and start IsardVDI again:
+Coloque esos certificados con el nombre correcto en / opt / isard / certs / default (reemplace todos los que ya están en esa carpeta) e inicie IsardVDI de nuevo:
 
 
 ```
 docker-compose up -d
 ```
 
-Now you may connect to IsardVDI server using the qualified CN as provided with your certificate.
+Ahora puede conectarse al servidor IsardVDI utilizando el CN calificado que se proporciona con su certificado.
 
-NOTE: Wilcard certificates have been also validated with this procedure to be working as expected. See example below:
+NOTA: Los certificados de Wilcard también se han validado con este procedimiento para que funcionen como se esperaba. Vea el ejemplo a continuación:
 
-### Example wildcard SSL Certificate
+### Ejemplo de certificado SSL comodín
 
-For example you have a wildcard commercial certificate from a company (let's say you bought *.isardvdi.com). You will get this files from your certificate provider:
+Por ejemplo, tiene un certificado comercial comodín de una empresa (digamos que compró * .isardvdi.com). Obtendrá estos archivos de su proveedor de certificados:
 
-- **wildcard_isardvdi_com.crt.pem**: Your wilcard certificate.
-- **GandiStandardSSLCA2.pem**: This is the intermediate certificate from certificate authority (in this example is gandi.net the provider). You can always get this certificate by copying or exporting from your browser certificate settings or download it from their webpage (i.e. ```wget -q -O - https://www.gandi.net/static/CAs/GandiStandardSSLCA2.pem```)
-- **wildcard_isardvdi_com.key.pem**: Your certificate private key.
+- **wildcard_isardvdi_com.crt.pem**: Su certificado de wilcard.
+- **GandiStandardSSLCA2.pem**:  Este es el certificado intermedio de la autoridad de certificación (en este ejemplo, gandi.net es el proveedor). Siempre puede obtener este certificado copiando o exportando desde la configuración de certificado de su navegador o descargándolo de su página web (i.e. ```wget -q -O - https://www.gandi.net/static/CAs/GandiStandardSSLCA2.pem```)
+- **wildcard_isardvdi_com.key.pem**: Su clave privada de certificado.
 
-We will need to transform this files into two needed by IsardVDI:
+Necesitaremos transformar estos archivos en dos necesarios para IsardVDI:
 
 - **server-cert.pem**: ```cat wildcard_isardvdi_com.crt.pem GandiStandardSSLCA2.pem > /opt/isard/certs/default/server-cert.pem```
 - **server-key.pem**: ```mv wildcard_isardvdi_com.key.pem /opt/isard/certs/default/server-key.pem```
 
-## Letsencrypt certificate
+## Certificado de Letsencrypt
 
-Always bring down IsardVDI before proceding to replace certificate:
+Siempre baje Isard VDI antes de proceder a reemplazar el certificado:
 
 ```
 docker-compose down
 ```
 
-- **server-cert.pem**: It is the fullchain.pem
-- **server-key.pem**:  It is the privkey.pem
+- **server-cert.pem**: Es el fullchain.pem
+- **server-key.pem**: Es el privkey.pem
+Coloque esos certificados con el nombre correcto en / opt / isard / certs / default (reemplace todo lo que ya está en esa carpeta) e inicie IsardVDI de nuevo:
 
-Put those certificates with correct name in **/opt/isard/certs/default** (replace everything that it is already in that folder) and start IsardVDI again:
 
 ```
 docker-compose up -d
 ```
 
-Now you may connect to IsardVDI server using the qualified CN as provided with your certificate.
+Ahora puede conectarse al servidor IsardVDI utilizando el CN calificado que se proporciona con su certificado.
 
-NOTE: Multihost certificates have been also validated with this procedure to be working as expected.
+NOTA: Los certificados de host múltiple también se han validado con este procedimiento para que funcionen como se esperaba.
 
-# Reset certificates
+# Restablecer certificados
 
-If you replaced certificates and nothing worked it is recommended to start the proccess again by resetting certificates. If you manipulate certificates in the folder it could confuss IsardVDI certificate processing code.
+Si reemplazó los certificados y nada funcionó, se recomienda iniciar el proceso nuevamente restableciendo los certificados. Si manipula certificados en la carpeta, podría confundir el código de procesamiento del certificado IsardVDI.
 
-You can always get your IsardVDI working again with self signed certificates by removing /opt/isard/certs/default folder. IsardVDI will generate and configure a new self signed certificate again. Procedure will be:
+Siempre puede hacer que su IsardVDI vuelva a funcionar con certificados autofirmados eliminando la carpeta / opt / isard / certs / default. IsardVDI generará y configurará un nuevo certificado autofirmado nuevamente. El procedimiento será:
 
 ```bash
 docker-compose down
@@ -81,8 +81,8 @@ rm -rf /opt/isard/certs/default
 docker-compose up
 ```
 
-You may have done a backup of your previously working self signed certificates and you could now also copy those ones in default certs folder instead of generating new ones.
+Es posible que haya hecho una copia de seguridad de sus certificados autofirmados que funcionaban anteriormente y ahora también podría copiarlos en la carpeta de certificados predeterminada en lugar de generar otros nuevos.
 
-# Troubleshoot certificates
+# Solucionar problemas de certificados
 
 Please refer to the  [admin faq about certificates](../admin/faq.md#certificates) section.
