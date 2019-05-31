@@ -1,32 +1,32 @@
 <h1>Media</h1>
 
-From media manager you can upload ISO and floppy images that will allow you to create new desktops that boot from it.
+Desde el administrador de medios, puede cargar imágenes ISO y de disquete que le permitirán crear nuevos escritorios que arranquen desde él.
 
 [TOC]
 
-# Upload media
+# Subir medios
 
-There is an **Add new** button that will open a new form to make IsardVDI download media from an URL:
+Hay un botón **Agregar nuevo** que abrirá un nuevo formulario para que IsardVDI descargue medios desde una URL:
 
 ![](../images/media/media-upload.png)
 
-- **URL**: Paste here any ISO file download URL or floppy. (Floppies can be used to add storage drivers while installing some OSs in hard disk).
-- **NAME**: It will propose by default the file name extracted from the URL. Change it if you prefer another one.
-- **TYPE**: Select the type of media being uploaded (ISO/CDROM or Floppy)
-- **DESCRIPTION**: Optional
-- **ALLOWS**: Allowed roles, categories, groups and users to use this media. Please refer to [allows form](allows.md#allows-form).
+- **URL**: Pegue aquí cualquier URL de descarga de archivos ISO o disquete. (Los disquetes se pueden usar para agregar controladores de almacenamiento al instalar algunos sistemas operativos en el disco duro).
+- **NOMBRE**: Propondrá por defecto el nombre del archivo extraído de la URL. Cámbiala si prefieres otra.
+- **TIPO**: seleccione el tipo de medio que se está cargando (ISO / CDROM o disquete)
+- **DESCRIPCIÖN**: Opcional
+- **PERMITE**: Los roles, categorías, grupos y usuarios permitidos usar este medio. Por favor refiérase a permite el formulario.
 
-When you click the **Upload** button it will start and you will see progress.
+Cuando hagas clic en el botón **Cargar**, se iniciará y verás el progreso.
 
 ![](../images/media/media-downloading.png)
 
-## Uploading media from local storage
+## Carga de medios desde el almacenamiento local
 
-If you have your ISO locally in your storage and you want to upload it to IsardVDI you can create a simple webserver which url to the file can be filled in the upload media form in IsardVDI.
+Si tiene su ISO localmente en su almacenamiento y desea subirlo a IsardVDI, puede crear un servidor web simple que pueda completar la url del archivo en el formulario de medios de carga en IsardVDI.
 
-**Python webserver example**
+**Ejemplo de servidor web Python**
 
-If you have *mycdrom.iso* file in a folder you can start a python webserver:
+Si tiene el archivo *mycdrom.iso* en una carpeta, puede iniciar un servidor web de Python:
 
 ```
 $ ls .
@@ -35,30 +35,32 @@ $ python -m SimpleHTTPServer
 Serving HTTP on 0.0.0.0 port 8000 ...
 ```
 
-The URL to download mycdrom.iso in IsardVDI upload media will be **http://localhost:8000/mycdrom.iso**
+La URL para descargar mycdrom.iso en los medios de carga IsardVDI será:   **http://localhost:8000/mycdrom.iso**
 
-# Create new desktop from uploaded media
+# Crear nuevo escritorio a partir de medios cargados
 
-This is the usual way of creating a complete new desktop from your uploaded ISO. You will see a green desktop icon next to the finished upload.
+Esta es la forma habitual de crear un escritorio nuevo y completo a partir de su ISO cargado. Verá un icono de escritorio verde junto a la carga finalizada.
 
 ![](../images/media/media-uploaded.png)
 
-When you click it a new desktop form creation will be shown:
+Al hacer clic en él, se mostrará una nueva creación de formulario de escritorio:
 
 ![](../images/media/media-desktop-form.png)
 
-- **Desktop name and description**: Fill the name and description for the new desktop being created.
-- **Selected ISO/Floppy to boot from**: You have the option to check if it is a Win proprietary ISO to install. This will also add a second ISO with optimized drivers for virtual Win (if the administrator already downloaded from updates).
-- **Select OS template**: Select the template that better suits your installation. It doesn't need to be the exact install, just a similar template as this will only set the generic hardware simulated for this desktop.
-- **Adjust OS template Hardware**: You can set the hardware within your user quota. By default the boot option will be set to CD/DVD and may not be modified if you are planning to create it from
+- **Nombre y descripción del escritorio**: Complete el nombre y la descripción del nuevo escritorio que se está creando.
+- **Selected ISO/Floppy selecciona para iniciar**:  tiene la opción de verificar si se trata de una ISO propietaria de Win para instalar. Esto también agregará una segunda ISO con controladores optimizados para Win virtual (si el administrador ya descargó de las actualizaciones).
+- **Seleccionar plantilla de sistema operativo**: Seleccione la plantilla que mejor se adapte a su instalación. No necesita ser la instalación exacta, solo una plantilla similar, ya que esto solo establecerá el hardware genérico simulado para este escritorio.
+- **Ajustar la plantilla del SO Hardware**: puede configurar el hardware dentro de su cuota de usuario. De forma predeterminada, la opción de inicio se establecerá en CD / DVD y no podrá modificarse si planea crearla
 
-When you finish and click in **Create desktop** button a desktop will be created. Go to *Desktops* menu to start, connect to it and begin installation from selected ISO.
+Cuando termine y haga clic en el botón **Crear escritorio**, se creará un escritorio. Vaya al menú de Escritorios para comenzar, conéctese y comience la instalación desde el ISO seleccionado.
+
 
 ![](../images/media/debian-install.png)
 
-***NOTE***: When you finish the OS installation usually that guest OS will request for a reboot. You may just shutdown your guest OS and then [edit desktop](desktops.md#edit-desktop) to change boot order from CD/DVD to HARD DISK. Also you may just remove the ISO from the [edit desktop](desktops.md#edit-desktop) media section if not needed anymore.
+***NOTA***: Cuando finaliza la instalación del sistema operativo, generalmente el sistema operativo invitado solicitará un reinicio. Simplemente puede apagar su sistema operativo invitado y luego editar el escritorio para cambiar el orden de arranque de CD / DVD a DISCO DURO. También puede eliminar la ISO de la sección de medios de escritorio de edición si ya no la necesita.
 
-## Create a network boot (PXE) desktop
 
-You can upload any ISO file (it can be a fake file ending with .iso that you created with touch for example) and then follow the process of [creating new desktop from uploaded media](media.md#create-new-desktop-from-uploaded-media) but selecting PXE in Boot select box instead of CD/DVD.
+## Crear un escritorio de arranque de red (PXE)
 
+
+Puede cargar cualquier archivo ISO (puede ser un archivo falso que termina con .iso que creó con el toque, por ejemplo) [creating new desktop from uploaded media](media.md#create-new-desktop-from-uploaded-media) y luego seguir el proceso de creación de un nuevo escritorio desde el medio cargado, pero seleccionando PXE en el cuadro de selección de Inicio en lugar de CD / DVD.
