@@ -1,22 +1,22 @@
-<h1>Updates</h1>
+<h1>Actualizaciones</h1>
 
-We currently have a cloud server where your IsardVDI can connect and update contents.
+Actualmente tenemos un servidor en la nube donde su IsardVDI puede conectarse y actualizar contenidos.
 
 [TOC]
 
-# Types of updates
+# Tipos de actualizaciones
 
-## Domains
+## Dominios
 
-## Media
+## Medios de comunicación
 
-## Graphics
+## Gráficos
 
-# Recommended updates
+# Actualizaciones recomendadas
 
-There are updates that will bring features for some actions, mainly if your are using Win guests and host clients:
+Existen actualizaciones que traerán características para algunas acciones, principalmente si está utilizando Win invitados y clientes anfitriones:
 
-- **Media**:
-  - Windows Virtio drivers x64: This will allow to add this ISO to new created Win desktops. In this ISO there are all the drivers needed for windows performance optimization. Recommended to install at least Virtio for hard disk and for network.
-  - Virt-viewer: This is the client optimized for desktop viewers using the Spice protocol that should be used in Windows
-  - Virt-viewer usb drivers: This is the client transparent plug-in for Win that will allow to transparently plug any USB device from your client computer to the guest, as if it was connected there.
+- **Medios de comunicación**:
+  - Controladores de Windows Virtio x64: Esto permitirá agregar este ISO a los nuevos escritorios Win creados. En esta ISO hay todos los controladores necesarios para la optimización del rendimiento de Windows. Recomendado para instalar al menos Virtio para disco duro y para red.
+  - Virt-viewer: este es el cliente optimizado para los espectadores de escritorio que utilizan el protocolo Spice que se debe usar en Windows
+  - Controladores USB de Virt-viewer: este es el complemento de cliente transparente para Win que le permitirá conectar de forma transparente cualquier dispositivo USB desde su computadora cliente al huésped, como si estuviera conectado allí.
