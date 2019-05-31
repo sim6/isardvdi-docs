@@ -4,36 +4,42 @@
 
 # Acciones de escritorio
 
-There are some actions that administrator can perform on each desktop, besides of start and stopping it:
+Hay algunas acciones que el administrador puede realizar en cada escritorio, además de iniciarlo y detenerlo.
 
-- **Template**: Lets the admin convert any desktop in the system to a template shared to others.
-- **Edit**: It is the generic desktop edit that also has the desktop user owner but now with the limits and permissions of the administrator.
-- **Delete**: Will delete user desktop. Not recoverable.
-- **XML**: You can view raw libvirt XML and modify it. This is practical whe trying new functionalities.
-- **Messages**: It will show the raw bunch of engine JSON messages associated with this desktop.
-- **Events**: It iwll show the raw bunch of engine JSON events associated with this desktop.
+- **Plantilla**: Permite al administrador convertir cualquier escritorio del sistema en una plantilla compartida con otros.
+- **Editar**: It is the generic desktop edit that also has the desktop user owner but now with the limits and permissions of the administrator.
+- **Borrar**: Se eliminará el escritorio del usuario. No se puede recuperar.
+- **XML**: Puedes ver el libvirt XML en bruto y modificarlo. Esto es práctico cuando.
+- **Messages**: Mostrará el montón de mensajes JSON del motor asociados con este escritorio.
+- **Events**: Se mostrará el montón de eventos JSON del motor asociados con este escritorio.
 
-# Global actions
+# Acciones globales
 
-There is a dropdown with a list of actions that can be performed on a set of desktops. Desktops can be selected clicking over them. Not selecting any desktop will lead to a whole desktop set selection, be carefull:
+Hay un menú desplegable con una lista de acciones que se pueden realizar en un conjunto de escritorios. Los escritorios se pueden seleccionar haciendo clic sobre ellos. Si no se selecciona ningún escritorio, se llevará a una selección completa de conjuntos de escritorios, ten cuidado:
 
 ![](../../images/admin/domains/desktops/global_actions.png)
 
-- **Toggle status**: This action will toggle *start* and *stopped* status. All the desktops selected will switch their status at once.
-- **Stop no viewers**: All the desktops started in the selection set that the system detected that no one is connected with a viewer will be stopped.
-- **Force stopped**: Whatever state has the desktop a *stopped* state will be set.
-- **Force failed**: Whatever state has the desktop a *failed* state will be set.
-- **Delete**: It will set all the selected desktop status to *deleting* if it is in stopped or failed status. That will initiate in background engine all the actions to reach complete deletion of desktops. If anything fails in that process the desktop will remain in a Failed state. You can always trigger delete action again on *deleting* desktops and they will be deleted from database ignoring the background engine.
+- **Alternar el estado**: Esta acción cambiará el estado de inicio y parada. Todos los escritorios seleccionados cambiarán su estado a la vez.
+- **Stop no viewers**: Todos los escritorios iniciados en el conjunto de selección indicaron que el sistema detectó que nadie se conectará con un visor se detendrá.
+- **Forzar detención**: Este como este el estado, se establecerá un estado fallido.
 
-# Create new from ISO
+- **Borrar**: Establecerá todos los estados de escritorio seleccionados para eliminarlos si está en estado detenido o fallido. Eso iniciará en segundo plano todas las acciones para lograr la eliminación completa de los escritorios. Si algo falla en ese proceso, el escritorio permanecerá en estado de error. Siempre puede volver a activar la acción de eliminación al eliminar escritorios y se eliminarán de la base de datos ignorando el motor de fondo.
 
-This is the usual way of creating a complete new desktop from your uploaded ISO:
 
-- **Desktop name and description**: Fill the name and description for the new desktop being created.
-- **Selected ISO/Floppy to boot from**: Select an already [uploaded media](media.md#upload-media) to install your new desktop. You have also the option to check if it is a Win proprietary ISO to install. This will also add a second ISO with optimized drivers for virtual Win (if the administrator already [downloaded from updates](../updates.md#recommended-updates)).
-- **Select OS template**: Select the template that better suits your installation. It doesn't need to be the exact install, just a similar template as this will only set the generic hardware simulated for this desktop.
-- **Adjust OS template Hardware**: By default the boot option will be set to CD/DVD and may not be modified if you are planning to create it from downloaded ISO.
+# Crear uno desde la ISO
 
-When you finish and click in **Create desktop** button a desktop will be created. Go to *Desktops* menu to start, connect to it and begin installation from selected ISO.
+Esta es la forma habitual de crear un nuevo escritorio completo a partir de su ISO cargado:
 
-***NOTE***: When you finish the OS installation usually that guest OS will request for a reboot. You may just shutdown your guest OS and then [edit desktop](desktops.md#edit-desktop) to change boot order from CD/DVD to HARD DISK. Also you may just remove the ISO from the [edit desktop](desktops.md#edit-desktop) media section if not needed anymore.
+
+- **Nombre y descripción del escritorio**: Rellene el nombre y la descripción del nuevo escritorio que se está creando.
+
+- **Selected ISO/Floppy to boot from**: Seleccione un medio ya cargado para instalar su nuevo escritorio. También tiene la opción de verificar si se trata de una ISO propietaria de Win para instalar. Esto también agregará una segunda ISO con controladores optimizados para Win virtual (si el administrador ya descargó de las actualizaciones).
+/updates.md#recommended-updates)).
+
+- **Seleccione la plantilla del SO**: Seleccione la plantilla que mejor se adapte a su instalación. No necesita ser la instalación exacta, solo una plantilla similar, ya que esto solo establecerá el hardware genérico simulado para este escritorio.
+- **Ajuste de la plantilla del sistema operativo**: De forma predeterminada, la opción de inicio se establecerá en CD / DVD y no podrá modificarse si planea crearla a partir de ISO descargada.
+
+
+Cuando termine y haga clic en el botón Crear escritorio, se creará un escritorio. Vaya al menú de Escritorios para comenzar, conéctese y comience la instalación desde el ISO seleccionado.
+
+***NOTA***: Cuando finaliza la instalación del sistema operativo, generalmente el sistema operativo invitado solicitará un reinicio. Simplemente puede apagar su sistema operativo invitado y luego editar el escritorio para cambiar el orden de arranque de CD / DVD a DISCO DURO. También puede eliminar la ISO de la sección de medios de escritorio de edición si ya no la necesita.
