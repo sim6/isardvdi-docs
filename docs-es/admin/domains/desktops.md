@@ -1,8 +1,8 @@
-<h1>Administer Desktops</h1>
+<h1>Administrar escritorios</h1>
 
 [TOC]
 
-# Desktop actions
+# Acciones de escritorio
 
 There are some actions that administrator can perform on each desktop, besides of start and stopping it:
 
@@ -11,7 +11,7 @@ There are some actions that administrator can perform on each desktop, besides o
 - **Delete**: Will delete user desktop. Not recoverable.
 - **XML**: You can view raw libvirt XML and modify it. This is practical whe trying new functionalities.
 - **Messages**: It will show the raw bunch of engine JSON messages associated with this desktop.
-- **Events**: It iwll show the raw bunch of engine JSON events associated with this desktop. 
+- **Events**: It iwll show the raw bunch of engine JSON events associated with this desktop.
 
 # Global actions
 

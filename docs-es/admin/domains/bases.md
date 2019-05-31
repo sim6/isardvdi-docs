@@ -1,1 +1,1 @@
-# Administering base images
+# Administración de imágenes base.
