@@ -1,100 +1,98 @@
-<h1>Hypervisors</h1>
+<h1>Hypervisores</h1>
 
 [TOC]
 
-# Types of hypervisors
+# Tipos de hipervisores
 
-## Pure hypervisor
+## Hipervisor puro
 
-When you edit or create an hypervisor you can check if it will be only an hypervisor. In this mode that server will only be used by IsardVDI to run virtual desktops. No virtual disks operations will be handled by this server.
+Cuando edita o crea un hipervisor, puede verificar si será solo un hipervisor. En este modo, IsardVDI sólo usará el servidor para ejecutar escritorios virtuales. No se manejan operaciones de discos virtuales por este servidor.
 
-## Pure disk operations
+## Operaciones de disco puro
 
-In this mode the server will only be used to handle virtual desktops disk operations.
+En este modo, el servidor solo se utilizará para manejar las operaciones de disco de los escritorios virtuales.
 
-## Mixed hypervisor + disk operations
+## Operaciones mixtas de hipervisor + disco.
 
-This mode will use the server for both running virtual desktops and executing virtual disk operations.
+Este modo utilizará el servidor tanto para ejecutar escritorios virtuales como para ejecutar operaciones de disco virtual.
 
-# External hypervisors
+# Hipervisores externos
 
-The preferred method for setting up a new hypervisor is to use the docker isard-generic-hyper image as it will bring up all the services needed in any linux host with docker. Three steps are required:
+El método preferido para configurar un nuevo hipervisor es usar la imagen isard-genérica-hiper de la ventana acoplable, ya que mostrará todos los servicios necesarios en cualquier host de Linux con la ventana acoplable. Se requieren tres pasos:
 
-1. Install KVM hypervisor (docker recommended)
-2. Add ssh keys for new KVM hypervisor
-3. Create new hypervisor in IsardVDI web UI.
+1. Instalar el hipervisor KVM (se recomienda la ventana acoplable)
+2. Añadir claves ssh para el nuevo hipervisor KVM
+3. Crear un nuevo hipervisor en la interfaz de usuario web de IsardVDI.
 
-## Install KVM hypervisor
+## Instalar KVM hipervisor
 
-### Docker Install (preferred)
+### Docker Install (preferido)
 
-Quick and easy setup of an external hypervisor could be done by using the external_hyper image. In your clean Linux installed server that will be the KVM hypervisor start container:
+La configuración rápida y fácil de un hipervisor externo se podría realizar utilizando la imagen external_hyper. En su servidor Linux instalado y limpio, será el contenedor de inicio del hipervisor KVM:
 
 ```
 cd dockers/external_hyper
 docker-compose up -d
 ```
 
-That should bring up a complete Isard Hypervisor in your server. 
+Eso debería mostrar un hipervisor Isard completo en su servidor.
 
-Actual certificates in IsardVDI path ```/opt/isard/certs/default/``` must be copied to your new KVM server host created path ```/opt/isard/certs/default``` and container restarted with ```docker-compose restart```.
+Los certificados reales en la ruta de IsardVDI / opt / isard / certs / default / deben copiarse en la nueva ruta creada por el host del servidor KVM / opt / isard / certs / default y el contenedor se debe reiniciar con el reinicio de la función docker-compose.
 
-Run this command to reset ssh keys and password:
+Ejecute este comando para restablecer las claves ssh y la contraseña:
 
 ```bash
 docker exec -e PASSWORD=<YOUR_ROOT_PASSWORD> externalhyper_isard-hypervisor_1 bash -c '/reset-hyper.sh'
 ```
 
-After that you can continue to add ssh keys for this hyper in your IsardVDI isard-app container and create new hypervisor in UI:
+Después de eso, puede continuar agregando claves ssh para este hiper en su contenedor IsardVDI isard-app y crear un nuevo hipervisor en la interfaz de usuario:
 
 ```bash
 docker exec -e HYPERVISOR=<IP|DNS> -e PASSWORD=<YOUR_ROOT_PASSWD> -e PORT=2022 isard_isard-app_1 bash -c '/add-hypervisor.sh'; history -d $((HISTCMD-1))
 ```
 
-### Manual Install
+### Manual de instalación
 
-If you want to use another host as the KVM hypervisor ensure it has:
+Si desea utilizar otro host como el hipervisor KVM, asegúrese de que tenga:
 
 - **libvirtd**:
-  - * **service running**: ```systemctl status libvirtd```. Check with your distro how to install a complete KVM hypervisor:
+  - * **servicio en ejecución**: ```systemctl status libvirtd```. Verifique con su distro cómo instalar un hipervisor KVM completo:
 
       * https://wiki.debian.org/KVM#Installation
       * https://help.ubuntu.com/community/KVM/Installation
       * https://wiki.centos.org/HowTos/KVM
       * https://wiki.alpinelinux.org/wiki/KVM
 
-    * **certificates enabled**: Actual certificates on IsardVDI path ```/opt/isard/certs/default/``` must be copied to your new KVM server path ```/etc/pki/libvirt-spice```. Also some lines should be added to *libvirtd.conf* and *qemu.conf* to make use of the certificates:
+    **Certificados habilitados**: Actuales certificados de ruta en isardvdi: ```/opt/isard/certs/default/``` debe ser copiado a su nueva ruta de servidor KVM ```/etc/pki/libvirt-spice```. También se deben agregar algunas lineas a *libvirtd.conf* y *qemu.conf* para hacer uso de los certificados:
 
       * ```bash
-        echo "listen_tls = 0" >> /etc/libvirt/libvirtd.conf; 
+        echo "listen_tls = 0" >> /etc/libvirt/libvirtd.conf;
         echo 'listen_tcp = 1' >> /etc/libvirt/libvirtd.conf;
         echo 'spice_listen = "0.0.0.0"' >> /etc/libvirt/qemu.conf
         echo 'spice_tls = 1' >> /etc/libvirt/qemu.conf
         ```
 
-    * **websocket server**: In order to allow connection to viewers through browsers also a websocket server should be set up. You should look at the *start_proxy.py* included dockers/hypervisor.
-- **sshd service running and reacheable for user**: ```systemctl status sshd```
-- **curl**: It will be used to get updates. 
-- **qemu-kvm**: You should create link to your qemu-system-x86_64 like this ```ln -s /usr/bin/qemu-system-x86_64 /usr/bin/qemu-kvm```
+    * **Servidor websocket**: Para permitir la conexión a los espectadores a través de navegadores, también se debe configurar un servidor websocket. Deberías mirar el *start_proxy.py* included dockers/hypervisor.
+- **Servicio ssh en ejecución y accesible para el usuario**: ```systemctl status sshd```
+- **Rizo**: Se utilizará para obtener actualizaciones
+- **qemu-kvm**: Deberías crear un enlace a tu qemu-system-x86_64 como este ```ln -s /usr/bin/qemu-system-x86_64 /usr/bin/qemu-kvm```
 
-## Add ssh keys for new Hypervisor 
+## Añadir claves ssh para el nuevo hipervisor
 
-You should previously add ssh keys to access that hypervisor. We do provide an script inside isard-app container to do this:
+Antes debe agregar claves ssh para acceder a ese hipervisor. Proporcionamos un script dentro del contenedor de la aplicación isard para hacer esto:
 
 ```bash
 docker exec -e HYPERVISOR=<IP|DNS> -e PASSWORD=<YOUR_ROOT_PASSWD> isard_isard-app_1 bash -c '/add-hypervisor.sh'
 ```
 
-**Note**: There are optional parameters that can be set:
+**Nota**: Hay parámetros opcionales que se pueden configurar:
 
-- PORT: Default is *22*
-- USER: Default is *root*
+- PUERTO: Por defecto es*22*
+- USUARIO: Por defecto es *root*
 
-After doing this you should go to hypervisors menu and add a new hypervisor with the same IP/DNS. Engine will try to connect when you enable that hypervisor.
+Después de hacer esto, debe ir al menú de hipervisores y agregar un nuevo hipervisor con la misma IP / DNS. El motor intentará conectarse cuando habilites ese hipervisor.
 
-**Example:**
-
-Note that whe added ``; history -d $((HISTCMD-1))`` to the command to avoid password being kept in our history.
+**Ejemplo:** Tenga en cuenta que cuando se agrega ; history -d $((HISTCMD-1)) al comando para evitar que la contraseña se mantenga en nuestro historial
 
 ```bash
 root@server:~/isard# docker exec -e HYPERVISOR=192.168.0.114 -e PASSWORD=supersecret isard_isard-app_1 bash -c '/add-hypervisor.sh'; history -d $((HISTCMD-1))
@@ -116,50 +114,52 @@ of a basic regular expression is not portable; it is ignored
 /usr/bin/ssh-copy-id: WARNING: All keys were skipped because they already exist on the remote system.
 		(if you think this is a mistake, you may want to use -f option)
 
-Hypervisor ssh access granted.
-Access to 192.168.0.114 granted and found libvirtd service running.
-Now you can create this hypervisor in IsardVDI web interface.
+    Hipervisor de acceso ssh otorgado.
+    El acceso a 192.168.0.114 concedió y encontró el servicio libvirtd en ejecución.
+    Ahora puede crear este hipervisor en la interfaz web de IsardVDI.
 ```
 
-If it fails, disable hypervisor, edit parameters and enable it again. IsardVDI engine will check connection again. You can see failed message in hypervisor details (click on + button to see details).
+Si falla, desactive el hipervisor, edite los parámetros y habilítelo nuevamente. El motor IsardVDI verificará la conexión nuevamente. Puede ver el mensaje fallido en los detalles del hipervisor (haga clic en el botón + para ver los detalles).
 
-If engine is not trying to connect again after enabling new hypervisor follow to restart isard-app container:
+Si el motor no está intentando conectarse nuevamente después de habilitar el nuevo hipervisor, siga para reiniciar el contenedor de la aplicación isard:
 
 ```bash
 docker restart isard_isard-app_1
 ```
 
-**NOTE**: Probably you want to remove default isard-hypervisor after creating a new external hypervisor. Disable isard-hypervisor and delete from hypervisor details. A *Force delete* action and isard-app container restart may be done afterwards.
+**NOTA**: Probablemente desee eliminar el hipervisor isard predeterminado después de crear un nuevo hipervisor externo. Desactive el hipervisor isard y elimínelo de los detalles del hipervisor. Una acción de eliminación forzada y el reinicio del contenedor de la aplicación isard se pueden realizar posteriormente.
 
-## Add hypervisor in web UI
+## Añadir hipervisor en la interfaz de usuario web
 
 
 
-# Infrastructure concepts
+# Conceptos de infraestructura
 
-When you add an external hypervisor you should be aware (and configure as needed) of:
+Cuando agrega un hipervisor externo, debe tener en cuenta (y configurar según sea necesario) de:
 
-- **Disks path**: By default it will store disks in /opt/isard. That folder doesn't need to be created but it is recommended that speedy IO storage (like nvme disk) is mounted in that path.
-- **Network performance**: If you are going to use a NAS you should take into account that speedy network must be used. Recommended network speed over 10Gbps. 
+- **Discos de ruta**: Por defecto almacenará discos en /opt/isard.No es necesario crear esa carpeta, pero se recomienda que el almacenamiento rápido de IO (como el disco nvme) esté montado en esa ruta.
+- **Rendimiento de la red**: Si va a utilizar un NAS, debe tener en cuenta que se debe utilizar una red rápida. Velocidad de red recomendada superior a 10Gbps.
 
-## Disks performance
+## Discos de rendimiento
 
-As different paths are used for bases, templates and groups disks you could improve performance mounting different storage nvme disks in each path:
+Como se usan diferentes rutas para las bases, plantillas y discos de grupos, se podría mejorar el rendimiento al montar diferentes discos de almacenamiento nvme en cada ruta:
 
-- **/opt/isard/bases**: There will reside the base images you create. Usually those disk images will be used as base for many templates and user disks (groups) so the storage should provide as quick read access as possible.
-- **/opt/isard/templates**: Templates will also be used as main disks for multiple user disks (groups). So better use a quick read access disk.
-- **/opt/isard/groups**: Running desktops will reside here. So a lot of concurrent IOs will be done here so the storage should provide as much IOPS as possible. NVME disks (or even NVME raids) will bring the best performance.
+- **/opt/isard/bases**: Allí residirán las imágenes base que crees. Por lo general, esas imágenes de disco se utilizarán como base para muchas plantillas y discos de usuario (grupos), por lo que el almacenamiento debe proporcionar un acceso de lectura lo más rápido posible.
+- **/opt/isard/templates**: Las plantillas también se utilizarán como discos principales para múltiples discos de usuario (grupos). Así que mejor usa un disco de acceso de lectura rápida.
+- **/opt/isard/groups**: Los escritorios en ejecución residirán aquí. Por lo tanto, aquí se realizará una gran cantidad de IOs simultáneas, por lo que el almacenamiento debe proporcionar la mayor cantidad posible de IOPS. Los discos NVME (o incluso las incursiones de NVME) brindarán el mejor rendimiento.
 
-## Network performance
+## Rendimiento de la red
 
-The storage network between hypervisors and NAS storage servers should be at least 10Gbps. All hypervisors should mount storage in **/isard** path and that mount should be the same for all hypervisors.
 
-As you can choose when creating hypervisor to be a **pure hypervisor**, **pure disk operations** or a **mixed one** you could add NAS storage servers as pure disk operations. That will bring a quicker disks manipulation as IsardVDI will make use of direct storage and commands on NAS.
+La red de almacenamiento entre los hipervisores y los servidores de almacenamiento NAS debe ser de al menos 10 Gbps. Todos los hipervisores deben montar el almacenamiento en la ruta / isard y ese montaje debe ser el mismo para todos los hipervisores.
 
-We have an IsardVDI infrastructure with six hypervisors and two pacemaker clustered NAS self made that share storage with NFSv4 and the performance is very good.
+Como puede elegir al crear un hipervisor para ser un hipervisor puro, operaciones de disco puras o una mixta, puede agregar servidores de almacenamiento NAS como operaciones de disco puras. Esto traerá una manipulación más rápida de los discos, ya que IsardVDI hará uso del almacenamiento directo y los comandos en el NAS.
 
-## High Availability / High Performance tech docs
+Contamos con una infraestructura IsardVDI con seis hipervisores y dos marcapasos con NAS que se hacen a sí mismos y que comparten el almacenamiento con NFSv4 y el rendimiento es muy bueno.
 
-We try to keep all our knowledge and experience in high performance and availability clusters using pacemaker, drbd, disk cachés, live migrations, etc.. at the [thedocs](http://thedocs.isardvdi.com) IsardVDI tech website.
+## Documentos técnicos de alta disponibilidad / alto rendimiento
 
-Do not miss our videos about [live virtual desktop and storage](http://thedocs.isardvdi.com/clusters/live-migration/) migration we did in our infrastructure: migrating virtual desktop from one hypervisor to another while AT THE SAME TIME we migrated it's storage from one NAS storage to another without virtual desktop user being aware of what happened!
+Intentamos mantener todo nuestro conocimiento y experiencia en clústeres de alto rendimiento y disponibilidad mediante el uso de marcapasos, drbd, cachés de disco, migraciones en vivo, etc. en el sitio web de tecnología IsardVDI de thedocs.
+ [thedocs](http://thedocs.isardvdi.com) IsardVDI tech website.
+
+No se pierda nuestros videos [live virtual desktop and storage](http://thedocs.isardvdi.com/clusters/live-migration/) sobre la migración de almacenamiento y escritorio virtual en vivo que hicimos en nuestra infraestructura: migrar el escritorio virtual de un hipervisor a otro mientras AL MISMO TIEMPO migramos su almacenamiento de un almacenamiento NAS a otro sin que el usuario del escritorio virtual sea consciente de lo que sucedió!
