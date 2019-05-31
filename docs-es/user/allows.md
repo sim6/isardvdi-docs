@@ -1,25 +1,25 @@
-<h1>Allows</h1>
+<h1>Permite</h1>
 
-This form will give the user the ability to share resources with other roles, categories, groups and users
+Este formulario le dará al usuario la posibilidad de compartir recursos con otros roles, categorías, grupos y usuarios
 
 [TOC]
 
-# Understanding permissions
+# Entendiendo los permisos
 
-There is a hierarchical classification of users based (from top to down):
+Hay una clasificación jerárquica de usuarios basada (de arriba a abajo):
 
 1. ROLES
-2. CATEGORIES
-3. GROUPS
-4. USERS
+2. CATEGORIAS
+3. GRUPOS
+4. USUARIOS
 
-That classification will set the access to IsardVDI web application (roles) and also their [quota](quotas.md) (categories, groups and users). It will also set where the user resources will be stored in server:
+Esa clasificación establecerá el acceso a la aplicación web IsardVDI (roles) y también a su cuota (categorías, grupos y usuarios). También establecerá dónde se almacenarán los recursos del usuario en el servidor:
 
 ​	`...<role>/<category>/<group>/<username>/...`
 
 ## Roles
 
-The role defines mainly where those users will have access within the IsardVDI web application:
+La función define principalmente dónde tendrán acceso esos usuarios dentro de la aplicación web IsardVDI:
 
 | ROLES          | USER ACCESS   | ADMIN ACCESS |
 | -------------- | ------------- | ------------ |
@@ -27,26 +27,26 @@ The role defines mainly where those users will have access within the IsardVDI w
 | Advanced Users | FULL          | NONE         |
 | Users          | Desktops only | NONE         |
 
-## Categories ad Groups
+##  Categorías y grupos
 
-These are only classification of users that will set them their [quotas](quotas.md). By default there is the **Local** category and group where all the new created users will be
+Estas son solo clasificaciones de usuarios que les fijarán sus cuotas. Por defecto, está la categoría y el grupo Local donde todos los nuevos usuarios creados serán
 
-## Users
+## Usuarios
 
-Of course there is the user. Different [quotas](quotas.md) can be set up for each user if needed.
+Por supuesto que está el usuario. Se pueden configurar diferentes cuotas para cada usuario si es necesario.
 
-# Allows Form
+# Permite formulario
 
-Users are allowed to share templates and media with others with this form. By default no access will be given to anyone (nothing is checked).
+Los usuarios pueden compartir plantillas y medios con otros con este formulario. Por defecto, no se dará acceso a nadie (no se marca nada).
 
-- **NO ONE ALLOWED** (Default): Nothing is checked. That means that no role, category, group and user should be matched. Only the owner will get access.
+- **NO HAY UNO PERMITIDO** (predeterminado): no se comprueba nada. Eso significa que no se debe hacer coincidir ningún rol, categoría, grupo y usuario. Sólo el propietario tendrá acceso.
 
 ![](../images/users/none_allowed.png)
 
-- **EVERYONE ALLOWED**: If you check (and activate) any role, category, group or user check box but you don't add any in the search box beside, it will match with ANY existing.
+- **TODOS PERMITIDOS**: Si marca (y activa) cualquier casilla de verificación de rol, categoría, grupo o usuario, pero no agrega ninguna en el cuadro de búsqueda al lado, coincidirá con CUALQUIERA.
 
 ![](../images/users/any_allowed.png)
 
-- **SOME ALLOWED**: To allow only for a certain role, category, group o user, just check it's check box and search for it in the search box beside. Note that if you leave the search box empty everyone will get access to that template or media.
+- **ALGUNOS PERMITIDOS**: Para permitir solo un determinado rol, categoría, grupo o usuario, simplemente marque la casilla de verificación y búsquelo en el cuadro de búsqueda al lado. Tenga en cuenta que si deja el cuadro de búsqueda vacío, todos tendrán acceso a esa plantilla o medios.
 
 ![](../images/users/some_allowed.png)
