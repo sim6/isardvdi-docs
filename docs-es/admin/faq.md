@@ -2,103 +2,104 @@
 
 [TOC]
 
-# Installation
+# Instalación
 
-## After finishing install the default isard-hypervisor is disabled
+## Después de terminar de instalar el isard-hypervisor predeterminado estará deshabilitado
 
-If you open de hypervisor details (click on + button) you will see messages from IsardVDI engine that can be useful to determine what happened. If you just finished install wizard and isard-hypervisor is disabled probably the problem is with virtualization capabilites.
+Si abre los detalles del hipervisor (haga clic en el botón +) verá mensajes del motor IsardVDI que pueden ser útiles para determinar qué sucedió. Si acaba de finalizar el asistente de instalación e isard-hypervisor está deshabilitado, probablemente el problema sea con las capacidades de virtualización.
 
-Your hardware needs to have virtualization enabled. You can check that in your BIOS but also from CLI:
+Su hardware necesita tener la virtualización habilitada. Puede comprobarlo en su BIOS pero también en CLI:
 
 ```bash
 egrep ‘(vmx|svm)’ /proc/cpuinfo
 ```
 
-If you see nothing in the output your CPU has no virtualization capabilites or they are disabled in BIOS. Please verify that your CPU has that capability and that it is not disabled in BIOS.
+Si no ve nada en la salida, su CPU no tiene capacidades de virtualización o están deshabilitadas en BIOS. Verifique que su CPU tenga esa capacidad y que no esté deshabilitada en la BIOS.
 
-You may also check for that capability inside de isard hypervisor running container by issuing the command:
+También puede verificar esa capacidad dentro del contenedor en ejecución del hipervisor isard emitiendo el comando:
 
 ```bash
 sudo docker exec -it isard-hypervisor virsh capabilities |grep "feature name"
 ```
 
-# Viewers
+# Espectadores
 
-## Tries to connect to localhost or incorrect IP/hostname
+## Intenta conectarte a localhost o IP / nombre de host incorrecto
 
-Disable isard-hypervisor in Hypervisors menu and check that viewer hostname is correct:
+Deshabilite el hipervisor isard en el menú Hipervisores y verifique que el nombre de host del espectador sea correcto:
 
-1. Disable isard-hypervisor in Hypervisor menu
-2. Edit Hypervisor (details edit button)
-3. Check/Update **Client viewers address**. Should be the hostname/IP where IsardVDI is running and must be accessible from clients.
-4. Enable isard-hypervisor again and start new domain to check viewer connection.
+1. Deshabilitar el hipervisor isard en el menú del hipervisor
+2. Editar hypervisor (botón editar detalles)
+3. Comprobar / actualizar la dirección de los espectadores del cliente. Debe ser el nombre de host / IP donde se está ejecutando IsardVDI y debe ser accesible desde los clientes.
+4. Habilite nuevamente el hipervisor isard e inicie un nuevo dominio para verificar la conexión del visor.
 
-### Explanation
+### Explicación
 
-Probably you did the wizard using 'localhost' or an IP address different to the one you are trying to connect now with viewers. That lead to an isard-hypervisor set up with 'localhost' or that wrong server IP address.
+Probablemente hiciste el asistente usando 'localhost' o una dirección IP diferente a la que intentas conectar ahora con los espectadores. Eso llevó a un hipervisor isard configurado con 'localhost' o esa dirección IP del servidor incorrecta.
 
-You can always modify the viewer address used for clients editing the isard-hypervisor. To edit it you must first disable isard-hypervisor by clicking in Enable/disable button:
+Siempre puede modificar la dirección del visor utilizada para los clientes que editan el hypervisor isard. Para editarlo, primero debe desactivar el hypervisor isard haciendo clic en el botón Habilitar / Deshabilitar:
+
 
 ![](../images/admin/faq/viewer_hyper_disabled.png)
 
- and then the edit button will be enabled so you can access the isard-hypervisor edit form:
+y luego se habilitará el botón de edición para que pueda acceder al formulario de edición del hipervisor isard:
 
 ![](../images/admin/faq/viewer_hyper_form.png)
 
-There are two viewer IPs that can be set:
+Hay dos IPs de visor que se pueden configurar:
 
-- **Client viewers address**: This IP/dns will be the one used in viewers from your network connecting to your IsardVDI server. So it should be set up to the real IP address of your server.
-- **Client viewers nat address**: This address only makes sense if you are planning to give access to this server from outside your organization through a NAT router. If this is your case then you must also set here the external static IP address (or domain name or dynamic domain name) from where it could be reached. 
-  - The **Client viewers TCP offset** option is there to offset the default 5900-5949 viewer range port accessible from internal network to another range from outside through the NAT. For example we have a set up with six hypervisors and all of them are accessible from inside with default range (5900-5949) but we set up NAT rules in our external router so each of the hypervisors have an external mapping port that not collides with others. IsardVDi will try to guess the client from connecting from inside your organization or from outside and will set up viewer address or viewer nat address depending on each origin client connecting.
+- **Dirección del cliente**: Esta IP / dns será la utilizada en los espectadores de su red que se conectan a su servidor IsardVDI. Por lo tanto, debe configurarse con la dirección IP real de su servidor.
+- **Dirección nat del cliente**: Esta dirección sólo tiene sentido si planea dar acceso a este servidor desde fuera de su organización a través de un enrutador NAT. Si este es su caso, también debe configurar aquí la dirección IP estática externa (o nombre de dominio o nombre de dominio dinámico) desde donde se puede acceder.
+  - La opción de desplazamiento TCP de los espectadores del cliente está ahí para compensar el puerto predeterminado del rango del visor 5900-5949 accesible desde la red interna a otro rango desde el exterior a través del NAT. Por ejemplo, tenemos una configuración con seis hipervisores y todos son accesibles desde dentro con un rango predeterminado (5900-5949), pero configuramos reglas de NAT en nuestro enrutador externo para que cada uno de los hipervisores tenga un puerto de mapeo externo que no coincida. otros. IsardVDi intentará adivinar que el cliente se conectará desde dentro de su organización o desde afuera y configurará la dirección del espectador o la dirección nat del espectador dependiendo de cada conexión de cliente de origen.
 
-So, usually you only have to modify the **Client viewers address** and enable the hypervisor again. 
+  Por lo tanto, normalmente solo tiene que modificar la dirección de los espectadores del Cliente y habilitar nuevamente el hipervisor.
 
-NOTE: *When enabling and disabling hypervisors it is recommended to restart isard-app container as this process is not completely reliable now and could fail. To restart it do:*
+NOTA: *Al habilitar y deshabilitar los hipervisores, se recomienda reiniciar el contenedor de la aplicación isard, ya que este proceso no es completamente confiable ahora y podría fallar. Para reiniciarlo haz:*
 
 ```bash
 sudo docker-compose restart isard-app
 ```
 
-This does not affect to currently started virtual machines.
+Esto no afecta a las máquinas virtuales actualmente iniciadas.
 
-## How can I get the password when connecting with VNC client in Win?
+## ¿Cómo puedo obtener la contraseña cuando me conecto con el cliente VNC en Win?
 
-Open the vnc browser viewer and you'll have the password in the url as a parameter. Copy it to use it with your vnc client in Win.
+Abra el visor del navegador vnc y tendrá la contraseña en la url como parámetro. Cópialo para usarlo con tu cliente vnc en Win.
 
-# Updates
+# Actualizaciones
 
-## Which user and password do the downloaded domains have?
+## ¿Qué usuario y contraseña tienen los dominios descargados?
 
-All domains that can be downloaded from updates have by default the user **isard** and the password **pirineus**. The isard user has also superuser privileges.
+Todos los dominios que pueden descargarse de las actualizaciones tienen, de forma predeterminada, el nombre de usuario y la contraseña pirineus. El usuario isard también tiene privilegios de superusuario.
 
-# Certificates
+# Certificados
 
-## Can't access Isard after replacing certificates
+## No se puede acceder a Isard después de reemplazar los certificados
 
-The new certificate will be used to access your IsardVDI webserver now. Verify that it is using it in your browser (usually there will be a locker icon before url input).
+El nuevo certificado se utilizará para acceder a su servidor web IsardVDI ahora. Verifique que lo esté usando en su navegador (normalmente habrá un icono de casillero antes de ingresar la URL).
 
-- In case it is not using new certificate check nginx isard container logs while bringing it up with docker-compose up (withouth daemonizing it with -d). There you will see information about the cert found in folder. 
-- Check the certificates now in default folder **/opt/isard/certs/default**. Code should have generated a ca-cert.pem (server certificate extracted from fullchain). You may remove all certificates, put new ones again and start it with docker-compose up.
+- En caso de que no esté utilizando los nuevos registros de certificados, verifique los registros del contenedor de archivos de nginx al abrirlo con docker-compose (sin demonizarlo con -d). Allí podrás ver información sobre el certificado que se encuentra en la carpeta.
 
-In case your new certificates didn't work it is recommended to remove all the certificates, bring IsardVDI up again so it will create new self-signed ones, and start the process of replacing certificates again (first brind down IsardVDI).
+Verifique los certificados ahora en la carpeta predeterminada / opt / isard / certs / default. El código debería haber generado un ca-cert.pem (certificado de servidor extraído de fullchain). Puede eliminar todos los certificados, volver a colocar los nuevos y comenzar con la función docker-compose up.
 
-## Which viewer connections are encrypted?
 
-Certificate info will be shown at menu Hypervisors -> Default pool, showing that it is in **Secure** mode and the **domain info** taken from the updated cert. 
+## ¿Qué conexiones de espectador están encriptadas?
 
-You may connect to a running desktop with spice client and see [[Encrypted]] in window bar. Also connect through vnc or spice websockets and check that it is using https URI with the provided certificate. These are the viewer connections that can be encrypted using certs:
+La información del certificado se mostrará en el menú Hipervisores -> Grupo predeterminado, que muestra que se encuentra en modo Seguro y la información del dominio tomada del certificado actualizado.
 
-- Spice client (remote-viewer)
-- Spice websockets (browser)
-- VNC websockets (browser)
+Puede conectarse a un escritorio en ejecución con el cliente de especias y ver [[Encrypted]] en la barra de la ventana. También conéctese a través de vnc o spice websockets y verifique que esté usando https URI con el certificado provisto. Estas son las conexiones de visor que se pueden cifrar mediante certificados:
 
-Note that VNC client can't be encrypted and should use a tunnel as described in viewers section.
+- Cliente de especias (visor remoto)
+- Spice websockets (navegador)
+- VNC websockets (navegador)
 
-## Viewer connections are not encrypted
+Tenga en cuenta que el cliente VNC no se puede cifrar y debe usar un túnel como se describe en la sección de espectadores.
 
-In case it is not using certificates to access viewers after you replaced certificates and IsardVDI webserver is using it correctly, there must be a server-cert.pem error. IsardVDI extracts a ca-cert.pem from the given server-cert.pem. Please check that extracted ca-cert.pem key is the correct one with:
+## Las conexiones del visor no están encriptadas.
+
+En caso de que no esté utilizando certificados para acceder a los espectadores después de que haya reemplazado los certificados y el servidor web IsardVDI lo esté utilizando correctamente, debe haber un error server-cert.pem. IsardVDI extrae un ca-cert.pem del servidor-cert.pem dado. Compruebe que la clave ca-cert.pem extraída sea la correcta con:
 
 - `openssl x509 -in /opt/isard/certs/default/ca-cert.pem -text`
-- Verify that you have a full chain with your server certificate first and then your root CA chain of certificates inside server-cert (**`cat myserver.pem ca-chain.pem > server-cert.pem`**)
+- Verifique que tenga una cadena completa con su certificado de servidor primero y luego su cadena de certificados de CA raíz dentro de server-cert (**`cat myserver.pem ca-chain.pem > server-cert.pem`**)
 
-If you are using an external hypervisor check that you have [copied the certificates in the correct folder](hypervisors.md#add-ssh-keys-for-new-hypervisor).
+Si está utilizando un hipervisor externo, compruebe que ha copiado los certificados en la carpeta correcta. (hypervisors.md#add-ssh-keys-for-new-hypervisor).
