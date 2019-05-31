@@ -1,40 +1,40 @@
-<h1>Installation</h1>
+<h1>Instalación</h1>
 
-IsardVDI now works out of the box with docker & docker-compose
+IsardVDI ahora funciona fuera de la caja con docker y docker-compose
 
 [TOC]
 
-# Requirements
+# Requerimientos
 
-You only need to have docker service and docker-compose installed:
+Solo necesita tener instalado el servicio docker y el docker-compose:
 
-- Install **Docker**: https://docs.docker.com/engine/installation/
+- Instalar **Docker**: https://docs.docker.com/engine/installation/
 
-  - Note: docker 17.04 or newer needed for docker-compose.yml v3.2
+  - Nota: la ventana acoplable 17.04 o más reciente es necesaria para la ventana acoplable compose.yml v3.2
 
     - ```bash
       sudo apt install docker
       ```
 
-- Install **docker-compose**: https://docs.docker.com/compose/install/
+- Instalar **docker-compose**: https://docs.docker.com/compose/install/
 
-  - Note: docker-compose 1.12 or newer needed for docker-compose.yml v3.5. You can install last version using pip3:
+Nota: docker-compose 1.12 o más necesario para docker-compose.yml v3.5. Puedes instalar la última versión usando pip3:
 
     - ```bash
       sudo apt install python3-pip -y
       sudo pip3 install docker-compose
       ```
 
-**NOTE**: Your hardware needs to have virtualization enabled. You can check that in your BIOS but also from CLI:
+**NOTA**: Su hardware necesita tener la virtualización habilitada. Puede comprobarlo en su BIOS pero también en CLI:
 
 ```
 egrep ‘(vmx|svm)’ /proc/cpuinfo
 ```
-​	If you see nothing in the output your CPU has no virtualization capabilites or they are disabled in BIOS.
+Si no ve nada en la salida, su CPU no tiene capacidades de virtualización o están deshabilitadas en el BIOS.
 
-# Quickstart
+# Inicio rápido
 
-To bring up IsardVDI you only need to download the docker-compose.yml file (or clone the full repo if you want to build the images yourself) and bring it up:
+Para que aparezca IsardVDI, solo necesita descargar el archivo docker-compose.yml (o clonar el repositorio completo si desea compilar las imágenes usted mismo) y abrirlo:
 
 ```bash
 wget https://raw.githubusercontent.com/isard-vdi/isard/master/docker-compose.yml
@@ -42,53 +42,54 @@ docker-compose pull
 docker-compose up -d
 ```
 
-That's all, just connect to **https://<ip|domain>** of the server and follow [wizard](wizard.md).
+Eso es todo, solo conéctese a https: // <ip | domain> del servidor y siga el asistente.
 
-Note: If you connect with your browser to the wizard through *localhost* or *127.0.0.1* the **viewer hostname** in *isard-hypervisor* will be set to that IP and no one will be able to open viewers from other computers.  Refer to  [troubleshoot incorrect viewer hostname](../admin/faq.md#tries-to-connect-to-localhost-or-incorrect-iphostname) to modify the viewer IP.
+
+Nota: si se conecta con su navegador al asistente a través de localhost o 127.0.0.1, el nombre de host del espectador en isard-hypervisor se configurará para esa IP y nadie podrá abrir espectadores desde otras computadoras. Consulte la resolución de problemas del nombre de host del visor incorrecto para modificar la IP del visor.
 
 # Insights
 
-## Mapped paths
+## Trayectorias mapeadas
 
-IsardVDI will create following paths on your system and map it inside hypervisor and app containers:
+IsardVDI creará las siguientes rutas en su sistema y las asignará dentro de los hipervisores y los contenedores de aplicaciones:
 
-- **/opt/isard**: The main folder that will contain:
-  - **bases**: Path where base template images will be stored. The complete path will include `/opt/isard/bases/<role>/<category>/<group>/<username>/<base_disk_name.qcow2>`
-  - **templates**: Path where user template images will be stored. The complete path will include `/opt/isard/templates/<role>/<category>/<group>/<username>/<tmpl_disk_name.qcow2>`
-  - **groups**: Path where desktop runnable images will be stored. The complete path will include `/opt/isard/group/<role>/<category>/<group>/<username>/<desktop_disk_name.qcow2>`
-  - **media**: Path where media (iso and floppy files) will be uploaded. The complete path will include `/opt/isard/media/<role>/<category>/<group>/<username>/<media_(iso|floppy).(iso|fd)>`
-  - **backups**: Database backups created in web interface using the backup config menu will be stored here.
-  - **uploads**: (work in progress)
-  - **logs**: Here you will have logs for all the containers. Be aware they could grow so they should be rotated/deleted programatically.
-  - **certs**: Certificates for web UI and viewer connections are stored here. Also you can replace initial self-signed certificates with your commercial/letsencrypt ones following the documentation guide about [replacing certificates](certificates.md). In the actual version IsardVDI website and viewers make use of the same certificates stored at `/opt/isard/certs/default/` path location.
+- **/opt/isard**: La carpeta principal que contendrá:
+  - **bases**: Ruta donde se almacenarán las imágenes de la plantilla base. La ruta completa incluirá /opt/isard/bases/<role>/<category>/<group>/<username>/<base_disk_name.qcow2>`
+  - **plantillas**: Ruta donde se almacenarán las imágenes de la plantilla del usuario. La ruta completa incluirá /opt/isard/templates/<role>/<category>/<group>/<username><tmpl_disk_name.qcow2>`
+  - **grupos**: Ruta donde se almacenarán las imágenes de escritorio ejecutables. La ruta completa incluirá /opt/isard/group/<role>/<category>/<group>/<username>/<desktop_disk_name.qcow2>`
+  - **medios**: Ruta donde se cargarán los medios (archivos iso y de disquete). La ruta completa incluirá /opt/isard/media/<role>/<category>/<group>/<username>/<media_ (iso | floppy).(Iso | fd)>
+  - **copias de seguridad**: Las copias de seguridad de la base de datos creadas en la interfaz web utilizando el menú de configuración de copia de seguridad se almacenarán aquí.
+  - **subidas**: (trabajo en progreso)
+  - **registros**: Aquí tendrá registros para todos los contenedores. Tenga en cuenta que podrían crecer, por lo que deberían rotarse / eliminarse programáticamente.
+  - **certificados**: Aquí se almacenan los certificados para la interfaz de usuario web y las conexiones del visor. También puede reemplazar los certificados autofirmados iniciales con sus comerciales / leemos encriptados siguiendo la guía de documentación sobre el reemplazo de certificados. En la versión actual, el sitio web de IsardVDI y los usuarios hacen uso de los mismos certificados almacenados en /opt/isard/certs/default/path location.
 
-## Build your docker images
+## Construye tus imágenes docker
 
-If you prefer to build your IsardVDI alpine based docker images you have to clone the full repository (git clone https://github.com/isard-vdi/isard.git) and you will find the docker sources under docker folder:
+Si prefiere crear sus imágenes de docker basadas en alpino IsardVDI, tiene que clonar el repositorio completo (clon git https://github.com/isard-vdi/isard.git) y encontrará las fuentes de docker en la carpeta docker:
 
-- **alpine-pandas**: This image has the pandas and numpy python3 libraries. The compilations of those libraries takes long time and, as they are needed for both hypervisor and app containers, we decided to create this image as the base for those images.
-- **hypervisor**: It will take alpine-pandas image as base and will bring up a complete KVM/qemu hypervisor with libvirt and a python websockets proxy for browser access to viewers.
-- **app**: It will add all the libraries needed to run the engine and webapp IsardVDI source code contained in /src folder of the repo.
-- **nginx**: It has the https web server optimized for socketio and websockets. It has also sources for error pages and websocket vnc and spice viewers.
-- **rethinkdb**: We use the official rethinkdb image from https://hub.docker.com/_/rethinkdb/.
+- **alpine-pandas**: Esta imagen tiene las bibliotecas de python3 pandas y numpy. Las compilaciones de esas bibliotecas llevan mucho tiempo y, como son necesarias para los hipervisores y los contenedores de aplicaciones, decidimos crear esta imagen como base para esas imágenes.
+- **hipervisor**: Tomará la imagen de los pandas alpinos como base y abrirá un hipervisor KVM / qemu completo con libvirt y un proxy websockets de Python para el acceso del navegador a los espectadores.
+- **aplicaciones**: Agregará todas las bibliotecas necesarias para ejecutar el motor y la aplicación web Isard VDI código fuente contenido en la carpeta / src del repositorio.
+- **nginx**: Tiene el servidor web https optimizado para socketio y websockets. También tiene fuentes para páginas de error y websocket vnc y visores de especias.
+- **rethinkdb**: Usamos la imagen oficial rethinkdb de  https://hub.docker.com/_/rethinkdb/.
 
-We do provide a build script for dockers. You only need to add version parameter:
+Proporcionamos un script de compilación para los estibadores. Solo necesitas agregar el parámetro de la versión:
 
 ```bash
 ./build-docker-images.sh 1.0.1
 ```
 
-After building images from source you can start it with ```docker-compose up -d```.
+Después de crear imágenes desde la fuente, puedes iniciarlo con docker-compose up -d.
 
-NOTE: Check the version of containers in docker-compose.yml file to build the same version.
+NOTA: compruebe la versión de los contenedores en el archivo docker-compose.yml para compilar la misma versión.
 
-# Sample installs
+# Instalaciones de muestra
 
 ## Debian 9 Stretch
 
-With a fresh debian 9 install you can install docker and docker-compose with this commands.
+Con una nueva instalación de Debian 9 puede instalar docker y docker-compose con estos comandos.
 
-### Install docker
+### Instalar docker
 
 ```bash
 apt-get remove docker docker-engine docker.io containerd runc
@@ -101,16 +102,16 @@ apt-get update
 apt-get install docker-ce
 ```
 
-### Install docker-compose
+### Instalar docker-compose
 ```bash
 apt install python3-pip
 pip3 install docker-compose
 ```
 ## Fedora 28-29
 
-With a fresh Fedora 28-29 install you can install docker and docker-compose with this commands.
+Con una nueva instalación de Fedora 28-29, puede instalar la ventana acoplable y la ventana acoplable composa con estos comandos.
 
-### Install docker
+### Instalar docker
 
 ```bash
 sudo dnf remove docker \
@@ -133,58 +134,60 @@ sudo systemctl start docker
 sudo systemctl enable docker
 ```
 
-### Install docker-compose
+### Instalar docker-compose
 ```bash
 yum install python3-pip
 pip3 install docker-compose
 ```
 
-# Troubleshooting Install
+# Solución de problemas de instalación
 
-## docker-compose up -d refuses to start hypervisor
+## docker-compose up -d se niega a iniciar el hipervisor
 
-The may be two possible sources for this problem. One is the use of a service in your host that is on a port in the range of default ports used by hypervisor and viewers. Those ports are:
+Puede haber dos posibles fuentes para este problema. Uno es el uso de un servicio en su host que se encuentra en un puerto en el rango de puertos predeterminados utilizados por el hipervisor y los espectadores. Esos puertos son:
 
-- 5900-5949: Spice viewer port range
-- 55900-55949: web browser viewer ports.
+- 5900-5949: rango de puertos del visor de especias
+- 55900-55949: puertos del visor del navegador web.
 
-You can check your listening ports by issuing the command **netstat -tulpn** and checking if any of your listening ports overlaps with hypervisor port range. 
+Puede verificar sus puertos de escucha emitiendo el comando netstat -tulpn y verificando si alguno de sus puertos de escucha se superpone con el rango de puertos del hipervisor.
 
-There is no easy solution to this without shutting down your service before starting IsardVDI. It happens that *chromium* in Linux starts listening for *mDNS* service on port 5353. This can be easily solved by using another browser like *firefox* to access IsardVDI or starting IsardVDI containers before opening *chromium browser*. Note that this will happen only if your are going to use the same computer to run IsardVDI and access it through a local browser in the server.
+No hay una solución fácil para esto sin cerrar su servicio antes de iniciar IsardVDI. Sucede que Chromium en Linux comienza a escuchar el servicio mDNS en el puerto 5353. Esto se puede resolver fácilmente usando otro navegador como Firefox para acceder a IsardVDI o iniciar contenedores de IsardVDI antes de abrir Chrome. Tenga en cuenta que esto ocurrirá solo si va a utilizar la misma computadora para ejecutar IsardVDI y acceder a ella a través de un navegador local en el servidor.
 
-## After doing the wizard the hypervisor details say there is no virtualization available
+## Después de hacer el asistente, los detalles del hipervisor dicen que no hay virtualización disponible
 
-Some CPUs (mostly old ones) don't have hardware virtualization, others have it but it is disabled in BIOS. In the first case there is nothing that can be done. If it is disabled in BIOS then you should check for VT-X or Virtualization or SVM and activate it.
+
+Algunas CPU (en su mayoría antiguas) no tienen virtualización de hardware, otras la tienen pero está desactivada en BIOS. En el primer caso no hay nada que se pueda hacer. Si está deshabilitado en el BIOS, debe verificar VT-X o Virtualización o SVM y activarlo.
 
 [More info in admin faqs](../admin/faq.md#after-finishing-install-the-default-isard-hypervisor-is-disabled)
 
-# Nested installation in KVM
+# Instalación nested en KVM
 
-Check for nested virtualization option in your host operating system:
+Verifique la opción de virtualización anidada en su sistema operativo host:
 
-- Intel processors: ```cat /sys/module/kvm_intel/parameters/nested```
-- AMD processors: ```cat /sys/module/kvm_amd/parameters/nested```
+- Procesadores Intel: ```cat /sys/module/kvm_intel/parameters/nested```
+- Procesadores AMD: ```cat /sys/module/kvm_amd/parameters/nested```
 
-It should show a **1** or **Y** if it is enabled.
+Debería mostrar un **1** o **Y** si está habilitado.
 
-You will need to enable nested virtualization on your host operating system if not active yet.
 
-## Nested virt in Intel processors:
+Deberá habilitar la virtualización anidada en su sistema operativo host si aún no está activo.
+
+## Nested virt en Procesadores Intel
 
 ### Live
 
-With all VMs stopped remove kvm_intel module
+Con todas las máquinas virtuales detenidas, elimine el módulo kvm_intel
 ```
 modprobe -r kvm_intel
 ```
-And load it again with nested option:
+Y vuelve a cargarlo con opción nested:
 ```
 modprobe kvm_intel nested=1
 ```
 
-### Permanent
+### Permanente
 
-Create the file ```/etc/modprobe.d/kvm.conf``` and add inside:
+Cree el archivo ```/etc/modprobe.d/kvm.conf``` y agregue dentro de:
 ```
 options kvm_intel nested=1
 ```
@@ -197,18 +200,18 @@ With all VMs stopped remove kvm_amd module
 ```
 modprobe -r kvm_amd
 ```
-And load it again with nested option:
+Y vuelve a cargarlo con opción anidada
 ```
 modprobe kvm_amd nested=1
 ```
 
-### Permanent
+###  Permanente
 
-Create the file ```/etc/modprobe.d/kvm.conf``` and add inside:
+Cree el archivo ```/etc/modprobe.d/kvm.conf``` y agregue dentro de:
 ```
 options kvm_amd nested=1
 ```
 
-# Installing IsardVDI inside VMWare ESXi guest
+# Instalación de IsardVDI dentro de VMWare ESXi guest
 
-Enable host CPU passthrough to the guest. That should be enough.
+Habilitar el paso de la CPU del host al invitado. Eso debería bastar.
