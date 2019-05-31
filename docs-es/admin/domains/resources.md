@@ -1,1 +1,1 @@
-# Desktop virtual hardware resources
+# Recursos de hardware virtual de escritorio
