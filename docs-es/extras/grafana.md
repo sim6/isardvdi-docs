@@ -2,44 +2,44 @@
 
 [TOC]
 
-# Introduction
+# Introducción
 
-SGrafana is a web frontend that allows showing dashboards with graphs. With this docker you will have statistics in real time about your IsardVDI.
+Grafana es una interfaz web que permite mostrar cuadros de mandos con gráficos. Con esta ventana acoplable tendrá estadísticas en tiempo real sobre su IsardVDI.
 
 ![](../images/extras/grafana/sample.png)
 
-# Installation
+# Instalación
 
-In the ```extras/grafana``` folder there is the docker-compsose file. You can bring the grafana docker up by pulling the image:
+En la carpeta extras / grafana está el archivo de composición acoplable. Puedes subir la ventana acoplable grafana tirando de la imagen:
 
 ```
 docker-compose pull
 docker-compose up -d
 ```
 
-Or you can build it
+O puedes construirlo
 
 ```
 ./build.sh <image version>
 ```
 
-# Configuration
+# Configuración
 
-In your IsardVDI web interface, as an admin, go to **config menu** and activate grafana. Check that the parameters are correct (for an stand alone installation of IsardVDI it should be)
+En su interfaz web IsardVDI, como administrador, vaya al **menú de configuración** y active grafana. Compruebe que los parámetros son correctos (para una instalación independiente de IsardVDI, debería ser)
 
-# Access
+# Acceso
 
-Connect to your IsardVDI server on port 3000 to access grafana dashboards. 
+Conéctese a su servidor IsardVDI en el puerto 3000 para acceder a los paneles de grafana.
 
-Default user is **admin** and password **isardvdi**. It is highly recommended that you change that default password.
+El usuario predeterminado es **admin** y la contraseña isardvdi. Es muy recomendable que cambie la **contraseña** predeterminada.
 
-# Remote grafana host
+# Servidor remoto Grafana
 
-You can put your grafana in another server by pulling (or building) and running there the remote yml:
+Puedes poner tu grafana en otro servidor tirando (o construyendo) y ejecutando allí el yml remoto:
 
 ```
 docker-compose pull
 docker-compose -f remote-grafana.yml up -d
 ```
 
-You should then modify grafana settings in IsardVDI **config menu** to allow access to this remote grafana host.
+Luego debe modificar la configuración de grafana en el menú de configuración de IsardVDI para permitir el acceso a este host de grafana remoto. 
