@@ -1,14 +1,14 @@
-<h1>Templates</h1>
+<h1>Plantillas</h1>
 
-Templates is the key in IsardVDI quick deployment system. Here advanced users can manage their templates and decide with whom they share it or not.
+Las plantillas son la clave en el sistema de despliegue rápido de IsardVDI. Aquí los usuarios avanzados pueden administrar sus plantillas y decidir con quién las comparten o no.
 
 [TOC]
 
-# Shares
+# Comparte
 
-In that icon it can be set to whom in the system the template is going to be shared based on [allows](allows.md#allows-form).
+En ese ícono se puede establecer a quién en el sistema se compartirá la plantilla según lo permita.
+ [allows](allows.md#allows-form).
 
-# Template details
+# Detalles de la plantilla
 
-When you click on the **+** sign to the left of each template a details view will open. There you will find actions and information about template hardware being used and system status information.
-
+Cuando haga clic en el signo **+** a la izquierda de cada plantilla, se abrirá una vista de detalles. Allí encontrará acciones e información sobre el hardware de plantilla que se está utilizando y la información de estado del sistema.
