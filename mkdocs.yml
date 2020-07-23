@@ -57,6 +57,7 @@ pages:
     - Wizard: install/wizard.md
     - First Steps: install/first-steps.md
     - Certificates: install/certificates.md
+- Web Interfaces: interfaces/web.md
 - User:
     - Desktops: user/desktops.md
     - Templates: user/templates.md
@@ -65,9 +66,7 @@ pages:
     - Allows: user/allows.md
 - Admin:
     - Users: admin/users.md
-    - Quotas: admin/quotas.md
-    - Limits: admin/limits.md
-    - Multitenant: admin/multitenant.md
+    - Multitenancy: admin/multitenant.md
     - Desktops: admin/domains/desktops.md
     - Templates: admin/domains/templates.md
     - Media: admin/domains/media.md

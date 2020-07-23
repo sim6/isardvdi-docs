@@ -1,4 +1,4 @@
-<h1>Multitenant</h1>
+<h1>Multitenancy</h1>
 
 The quotas can limit the resources used by each role, category, group or user individually for different items.
 
@@ -6,7 +6,7 @@ The quotas can limit the resources used by each role, category, group or user in
 
 # Introduction
 
-Multi-tenant IsardVDI installation allows for multiple organizations/companies to share the same IsardVDI installation. This is, the same infrastructure now can be *split* by *limits* into a shared infrastructure, where *managers* in that organization can administer everything within the defined limits.
+Multitenancy IsardVDI installation allows for multiple organizations/companies to share the same IsardVDI installation. This is, the same infrastructure now can be *split* by *limits* into a shared infrastructure, where *managers* in that organization can administer everything within the defined limits.
 
 ![](../images/admin/mt_description.png)
 
