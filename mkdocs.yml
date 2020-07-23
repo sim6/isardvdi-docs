@@ -17,7 +17,7 @@ copyright: Copyright &copy; 2016 <a href="http://www.isardvdi.com">IsardVDI</a>.
 #theme: 'material'
 theme:
   name: "readthedocs"
-strict: true
+strict: false
 
 # Options
 extra:
@@ -65,12 +65,13 @@ pages:
     - Allows: user/allows.md
 - Admin:
     - Users: admin/users.md
-    - Domains: 
-        - Desktops: admin/domains/desktops.md
-        - Templates: admin/domains/templates.md
-        - Bases: admin/domains/bases.md
-        - Media: admin/domains/media.md
-        - Resources: admin/domains/resources.md
+    - Quotas: admin/quotas.md
+    - Limits: admin/limits.md
+    - Multitenant: admin/multitenant.md
+    - Desktops: admin/domains/desktops.md
+    - Templates: admin/domains/templates.md
+    - Media: admin/domains/media.md
+    - Resources: admin/domains/resources.md
     - Hypervisors: admin/hypervisors.md
     - Updates: admin/updates.md
     - FAQ: admin/faq.md

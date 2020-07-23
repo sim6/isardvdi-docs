@@ -6,24 +6,38 @@ IsardVDI now works out of the box with docker & docker-compose
 
 # Requirements
 
-You only need to have docker service and docker-compose installed:
+You only need to have docker service and docker-compose installed. Example with Debian 10.
 
 - Install **Docker**: https://docs.docker.com/engine/installation/
 
   - Note: docker 17.04 or newer needed for docker-compose.yml v3.2
 
+
     - ```bash
-      sudo apt install docker
+      apt-get remove docker docker-engine docker.io containerd runc
+      apt-get install -y \
+          apt-transport-https \
+          ca-certificates \
+          curl \
+          gnupg-agent \
+          software-properties-common
+      curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
+      add-apt-repository \
+         "deb [arch=amd64] https://download.docker.com/linux/debian \
+         $(lsb_release -cs) \
+         stable"
+      apt-get update -y
+      apt-get install -y docker-ce docker-ce-cli containerd.io   
       ```
 
 - Install **docker-compose**: https://docs.docker.com/compose/install/
 
   - Note: docker-compose 1.12 or newer needed for docker-compose.yml v3.5. You can install last version using pip3:
 
-    - ```bash
-      sudo apt install python3-pip -y
-      sudo pip3 install docker-compose
-      ```
+  - ```bash
+    apt install python3-pip -y
+    pip3 install docker-compose
+    ```
 
 **NOTE**: Your hardware needs to have virtualization enabled. You can check that in your BIOS but also from CLI:
 
@@ -42,9 +56,54 @@ docker-compose pull
 docker-compose up -d
 ```
 
-That's all, just connect to **https://<ip|domain>** of the server and follow [wizard](wizard.md).
+That's all, just connect to **https://<ip|domain>/isard-admin** with default user *admin* and password *IsardVDI*. Please wait one minute the first time to allow for database to be populated.
 
-Note: If you connect with your browser to the wizard through *localhost* or *127.0.0.1* the **viewer hostname** in *isard-hypervisor* will be set to that IP and no one will be able to open viewers from other computers.  Refer to  [troubleshoot incorrect viewer hostname](../admin/faq.md#tries-to-connect-to-localhost-or-incorrect-iphostname) to modify the viewer IP.
+Note: Refer to  [troubleshoot incorrect viewer hostname](../admin/faq.md#tries-to-connect-to-localhost-or-incorrect-iphostname) to modify the viewer IP in hypervisor if you have any problems connecting to the viewers.
+
+# Configuration
+
+You can personalize many features and parameters to adapt your installation to your environment. This parameters are int **isardvdi.conf** file in git repository. Main parameters are:
+
+## Main parameters
+
+- **HOSTNAME**: Will identify this host.
+- **WEBAPP_SESSION_SECRET**: For security reasons generate your own with ```openssl rand -base64 32```and replace the default one.
+- **WEBAPP_ADMIN_PWD**: If you set here your desired password it will be set at first install to the default **admin** user. You can always update it later in the user profile or users admin.
+
+## Letsencrypt
+
+- **WEBAPP_LETSENCRYPT_DNS**: If you set one IsardVDI will generate and renew certificates. Your server should have external access to ports 80 and 443.
+- **WEBAPP_LETSENCRYPT_EMAIL**: Letsencrypt needs your domain email contact
+
+## Grafana
+
+- **GRAFANA_URL**: Set it to your dns domain if you have one.
+
+## Telegram
+
+ If you want alerts on IsardVDI problems detected (you can find it also in logs) set this parameters that will send updates to your bot chat.
+
+- **TELEGRAM_BOT_TOKEN**: The bot token.
+- **TELEGRAM_BOT_CHATID**= The chat id where bot is.
+
+## OAuth2
+
+- **BACKEND_HOST**: Set it to your domain
+- **BACKEND_AUTH_AUTOREGISTRATION**: Activate auto registering
+
+### Google
+
+- **BACKEND_AUTH_GOOGLE_ID**: Set your google ID.
+- **BACKEND_AUTH_GOOGLE_SECRET**: Set your google secret.
+
+### Github
+
+- **BACKEND_AUTH_GITHUB_ID**: Set your github ID.
+- **BACKEND_AUTH_GITHUB_SECRET**:  Set your github secret.
+
+
+
+There are many other parameters in this file that are mainly used when complex IsardVDI infrastructure is used. Do not modify them unless you know what you are doing (file has comments)
 
 # Insights
 
@@ -61,22 +120,11 @@ IsardVDI will create following paths on your system and map it inside hypervisor
   - **uploads**: (work in progress)
   - **logs**: Here you will have logs for all the containers. Be aware they could grow so they should be rotated/deleted programatically.
   - **certs**: Certificates for web UI and viewer connections are stored here. Also you can replace initial self-signed certificates with your commercial/letsencrypt ones following the documentation guide about [replacing certificates](certificates.md). In the actual version IsardVDI website and viewers make use of the same certificates stored at `/opt/isard/certs/default/` path location.
+- **/opt/isard-local**: Logs and sockets from containers.
 
 ## Build your docker images
 
 If you prefer to build your IsardVDI alpine based docker images you have to clone the full repository (git clone https://github.com/isard-vdi/isard.git) and you will find the docker sources under docker folder:
-
-- **alpine-pandas**: This image has the pandas and numpy python3 libraries. The compilations of those libraries takes long time and, as they are needed for both hypervisor and app containers, we decided to create this image as the base for those images.
-- **hypervisor**: It will take alpine-pandas image as base and will bring up a complete KVM/qemu hypervisor with libvirt and a python websockets proxy for browser access to viewers.
-- **app**: It will add all the libraries needed to run the engine and webapp IsardVDI source code contained in /src folder of the repo.
-- **nginx**: It has the https web server optimized for socketio and websockets. It has also sources for error pages and websocket vnc and spice viewers.
-- **rethinkdb**: We use the official rethinkdb image from https://hub.docker.com/_/rethinkdb/.
-
-We do provide a build script for dockers. You only need to add version parameter:
-
-```bash
-./build-docker-images.sh 1.0.1
-```
 
 After building images from source you can start it with ```docker-compose up -d```.
 
@@ -143,16 +191,16 @@ pip3 install docker-compose
 
 ## docker-compose up -d refuses to start hypervisor
 
-The may be two possible sources for this problem. One is the use of a service in your host that is on a port in the range of default ports used by hypervisor and viewers. Those ports are:
+The may be two possible sources for this problem. One is the use of a service in your host that is on a port in the range of default ports used by IsardVDI and viewers. Those ports are:
 
-- 5900-5949: Spice viewer port range
-- 55900-55949: web browser viewer ports.
+- 80: Spice proxy SSL tunnel viewer port
+- 443: Web browser and HTML4 viewer port.
 
-You can check your listening ports by issuing the command **netstat -tulpn** and checking if any of your listening ports overlaps with hypervisor port range. 
+You can check your listening ports by issuing the command **netstat -tulpn** and checking if any of your listening ports overlaps with IsardVDI port range. 
 
-There is no easy solution to this without shutting down your service before starting IsardVDI. It happens that *chromium* in Linux starts listening for *mDNS* service on port 5353. This can be easily solved by using another browser like *firefox* to access IsardVDI or starting IsardVDI containers before opening *chromium browser*. Note that this will happen only if your are going to use the same computer to run IsardVDI and access it through a local browser in the server.
+There is no easy solution to this without shutting down your service before starting IsardVDI.
 
-## After doing the wizard the hypervisor details say there is no virtualization available
+## The hypervisor details say there is no virtualization available
 
 Some CPUs (mostly old ones) don't have hardware virtualization, others have it but it is disabled in BIOS. In the first case there is nothing that can be done. If it is disabled in BIOS then you should check for VT-X or Virtualization or SVM and activate it.
 

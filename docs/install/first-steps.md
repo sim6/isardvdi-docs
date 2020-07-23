@@ -1,48 +1,40 @@
 <h1>First steps</h1>
 
-Once you have IsardVDI working you will be able to test demo desktops from updates, but also create new ones with any ISO you can upload. Go to dektops menu to start playing.
+Once you have IsardVDI working you will be able to test demo desktops from updates, but also create new ones with any ISO you upload.
 
 [TOC]
 
-# Demo desktops
-
-In your **Desktops** menu you will find two test domains already downloaded during the wizard (if you checked to get demo desktops).
-
-- **TetrOS**: A falling blocks game written that fits into the Master Boot Record. No bootloader or operating system is needed to rotate blocks and clear rows!
-- **ZXSpectrum**: Was one of most successful 8-bit machines of all time.
-
-![](../images/first-steps/demo-desktops.png)
-
-You can start it and a modal form will show up to select the viewer you want to use. You can try it with browser viewer options (spice or vnc) without installing any viewer. For best performance connect with spice client (refer to [viewer section](../user/desktops.md#connect-to-viewer))
-
 # Updates
 
-From **updates** menu administrator can download example desktops (domains) that we have already optimized.
+From **updates** menu administrator can download example desktops that we have already optimized.
 
 ![](../images/first-steps/updates.png)
 
-All domains that can be downloaded from updates have by default the user **isard** and the password **pirineus**. The isard user has also superuser privileges.
+You can start it and a modal form will show up to select the viewer you want to use. You can try it with browser viewer options (spice or vnc) without installing any viewer. For best performance connect with spice client (refer to [viewer section](../user/desktops.md#connect-to-viewer))
 
-# Create your desktop
+![](../images/first-steps/demo-desktops.png)
 
-Administrators and Advanced Users are able to create their own desktops by uploading an ISO install file to Media. Administrators can make use of [User Media](../user/media.md#upload-media) menu and also [Administrator Domain Media](../admin/domains/media.md#upload-media) menu.
+All desktops that can be downloaded from updates have by default the user **isard** and the password **pirineus**. The isard user has also superuser privileges.
+
+# Create your own desktop
+
+Administrators and Advanced Users are able to create their own desktops by uploading an ISO install file to Media menu. 
 
 From the [User Media](../user/media.md#upload-media) menu click on **+Add new** button and a modal form will open where you can put the web URL with the ISO you want to download.
 
 ![](../images/first-steps/media-upload.png)
 
-When it finished downloading you will be able to create a new desktop booting from this ISO file clicking in the green desktop icon that will be shown beside the downloaded file.
+When upload finishes you will be able to create a new desktop booting from this ISO file clicking in the green desktop icon that will be shown beside the downloaded file.
 
 ![](../images/first-steps/media-downloaded.png)
 
-Now fill in the modal form to create your desktop.
+Now fill in the modal form to create your desktop and define the hardware.
 
 ![](../images/first-steps/create-desktop.png)
 
 - Fill in the **name** and optional **description**
-- Select an **Os teplate** from the list (you can get more from updates menu). It should be as similar as possible to the system you are going to install.
-- Select all the **hardware** you want your new desktop to have. You are going to boot from the downloaded ISO, so do not modify the ISO/CD boot.
-- If it is a Win install you may check the Win install checkbox (you have details in [Windows guest](first-steps.md#win-guest))
+- Select an **Os teplate** from the list (you can get more from updates menu). It should be as similar as possible to the system you are going to install. **Note**: Yo can get more OS templates optimized for other systems by downloading it from *Updates* menu.
+- Select all the **hardware** you want your new desktop to have. You are going to boot from the downloaded ISO, so do not modify the ISO/CD boot. 
 
 After that you should see your new created desktop in the **Desktops** menu. Start it and your ISO install should come up. Remember to change boot to hard disk when you finish installing it from the desktop details.
 

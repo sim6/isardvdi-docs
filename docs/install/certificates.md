@@ -1,19 +1,59 @@
 <h1>Certificates</h1>
 
-SSL certificates should be used to secure web access and connections to virtual desktops with viewers. IsardVDI will generate a default self signed generic certificate when installing from the first time. Also, if no certificate present it will generate a new self signed to make use of it by default. That's why browsers will ask for certificate acceptance on first access to IsardVDI web.
+SSL certificates should be used to secure web access and connections to virtual desktops with viewers. 
+
+IsardVDI will generate a default self signed generic certificate when installing from the first time if you don't configure letsencrypt parameters. That's why browsers will ask for certificate acceptance on first access to IsardVDI web...
+
+If you configure letsencrypt domain parameters in isardvdi.cfg then it will generate one for you and autorenew it (remind that you should keep your server ports 80 and 443 open for external access through this domain). Also, if no certificate present it will generate a new self signed to make use of it by default. 
 
 [TOC]
 
 # Manage certificates
 
-Certificates are stored in path **/opt/isard/certs/default** where it can be replaced by new ones. The certificates need to be as follows:
+Certificates are stored in path **/opt/isard/certs/** where it can be replaced by new ones. The certificates need to be as follows:
+
+## Web certificate
+
+It is the **/opt/isard/certs/default/chain.pem** certificate concatenation. It should contain (in this order) the **server certificate** and **server-key**:
+
+```
+cat server-cert.pem server-key.pem > chain.pem
+```
+
+In case of a commercial certificate you should include de intermediate chain:
+
+```
+cat myserver.pem ca-chain.pem myserverkey.pem > chain.pem
+```
+
+In case of a letsencrypt certificate:
+
+```
+cat fullchain.pem privkey.pem > chain.pem
+```
+
+## Video certificate
+
+It is the **/opt/isard/certs/default/video.pem**
+
+If you are in an standalone installation (hypervisor is in the same host) the video certificate used for HTML5 viewers it is the same as chain.pem web certificate, So you just can copy that file.
+
+If you are in an infrastructure implementation (where you have different hypervisors) then you should generate new video.pem for each hypervisor using the same procedure as for generating the web certificate. Remember that IsardVDI will generate those self-signed or letsencrypt certificates for you if you configure correctly the isardvdi.cfg.
+
+## Spice video certificate
+
+They are in the **/opt/isard/certs/viewers folder. 
+
+You should include only this two files and bring IsardVDI docker-compose up again:
 
 - **server-cert.pem**: It is the full chain of certificate with root cert included.
 - **server-key.pem**: It is the server host key.
 
 The ca-cert.pem will be readed from existing server-cert.pem so be aware that the server-cert.pem must contain in first position the server certificate and after that one the chain of validation entity certificates (chain)
 
-## Commercial certificate
+### Examples with certificates from vendors
+
+#### Commercial certificate
 
 Always bring down IsardVDI before proceding to replace certificate:
 
@@ -35,7 +75,7 @@ Now you may connect to IsardVDI server using the qualified CN as provided with y
 
 NOTE: Wilcard certificates have been also validated with this procedure to be working as expected. See example below:
 
-### Example wildcard SSL Certificate
+#### Example wildcard SSL Certificate
 
 For example you have a wildcard commercial certificate from a company (let's say you bought *.isardvdi.com). You will get this files from your certificate provider:
 
@@ -48,7 +88,7 @@ We will need to transform this files into two needed by IsardVDI:
 - **server-cert.pem**: ```cat wildcard_isardvdi_com.crt.pem GandiStandardSSLCA2.pem > /opt/isard/certs/default/server-cert.pem```
 - **server-key.pem**: ```mv wildcard_isardvdi_com.key.pem /opt/isard/certs/default/server-key.pem```
 
-## Letsencrypt certificate
+#### Letsencrypt certificate
 
 Always bring down IsardVDI before proceding to replace certificate:
 
@@ -77,8 +117,8 @@ You can always get your IsardVDI working again with self signed certificates by 
 
 ```bash
 docker-compose down
-rm -rf /opt/isard/certs/default
-docker-compose up
+rm -rf /opt/isard/certs/*
+docker-compose up -d
 ```
 
 You may have done a backup of your previously working self signed certificates and you could now also copy those ones in default certs folder instead of generating new ones.

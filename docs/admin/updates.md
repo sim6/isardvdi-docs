@@ -8,9 +8,17 @@ We currently have a cloud server where your IsardVDI can connect and update cont
 
 ## Domains
 
+Domains in updates are Operating Systems already installed and optimized, ready to be used. Default user is **isard** and password **pirineus**
+
 ## Media
 
-## Graphics
+Links to ISO downloads.
+
+
+
+## Virt installs
+
+This allows to download full set of hardware definitions for new OS that you will install with your uploaded ISOS in media.
 
 # Recommended updates
 

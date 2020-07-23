@@ -19,17 +19,22 @@ That classification will set the access to IsardVDI web application (roles) and 
 
 ## Roles
 
-The role defines mainly where those users will have access within the IsardVDI web application:
+The role defines mainly where those users will have access within the IsardVDI web application. There are items that can be managed:
 
-| ROLES          | USER ACCESS   | ADMIN ACCESS |
-| -------------- | ------------- | ------------ |
-| Administrators | FULL          | FULL         |
-| Advanced Users | FULL          | NONE         |
-| Users          | Desktops only | NONE         |
+- Desktops
+- Templates
+- Media
+
+| ROLES         | USER ACCESS (own items) | ADMIN ACCESS (others items)      |
+| ------------- | ----------------------- | -------------------------------- |
+| Administrator | FULL                    | FULL                             |
+| Manager       | FULL                    | FULL *ONLY IN HIS CATEGORY ITEMS |
+| Advanced User | FULL                    | NONE                             |
+| User          | Desktops only           | NONE                             |
 
 ## Categories ad Groups
 
-These are only classification of users that will set them their [quotas](quotas.md). By default there is the **Local** category and group where all the new created users will be
+These are only classification of users that will set them their [quotas](quotas.md) and limits. By default there is the **Default** category and group where all the new created users will be.
 
 ## Users
 
@@ -37,7 +42,9 @@ Of course there is the user. Different [quotas](quotas.md) can be set up for eac
 
 # Allows Form
 
-Users are allowed to share templates and media with others with this form. By default no access will be given to anyone (nothing is checked).
+Users are allowed to share items  with others with this form. By default no access will be given to anyone (nothing is checked).
+
+**NOTE**: From version 2.X resources shared inside a category are only seen in this category (or subgroups and users in that category). Only administrators can share items with categories. This was done to allow for multitenant set up.
 
 - **NO ONE ALLOWED** (Default): Nothing is checked. That means that no role, category, group and user should be matched. Only the owner will get access.
 
