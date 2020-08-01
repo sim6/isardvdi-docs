@@ -10,8 +10,8 @@ Get the docker-compose file and bring it up:
 
 (You may edit **isardvdi.conf** parameters file prior to bringing up IsardVDI and adapt it to your installation. By default IsardVDI will start with self-signed certificate if no *letsencrypt* parameters defined in isardvdi.conf file.)
 
-```
-wget https://raw.githubusercontent.com/isard-vdi/isard/master/docker-compose.yml
+```bash
+wget https://raw.githubusercontent.com/isard-vdi/isard/master/docker-compose.yml.example
 docker-compose pull
 docker-compose up -d
 ```
@@ -80,7 +80,7 @@ We have experience in different **thin clients** that we use to lower renovation
 
 ## Authors
 
-### IsardVDI limited
+### IsardVDI
 
 + Josep Maria Viñolas Auquer
 + Alberto Larraz Dalmases
