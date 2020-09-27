@@ -145,6 +145,8 @@ Recommended to activate *disk operations* and *hypervisor* options and set web h
 
 To connect a trunk interface with vlan definitions inside the hypervisor you have to set (and uncomment) variables in your isardvdi.conf:
 
+**IMPORTANT NOTE**: Remember to rebuild the docker-compose by issuing the ./build.sh command again.
+
 - **HYPERVISOR_HOST_TRUNK_INTERFACE:** This is the host network trunk interface name as seen in the host. For example: eth1
 
   If you don't set HYPERVISOR_STATIC_VLANS the hypervisor will auto detect vlans for 260 seconds each time it starts isard-hypervisor container. So, it is better to define the static vlans you know are in the trunk.
