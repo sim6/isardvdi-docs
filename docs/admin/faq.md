@@ -26,6 +26,12 @@ You may also check for that capability inside de isard hypervisor running contai
 sudo docker exec -it isard-hypervisor virsh capabilities |grep "feature name"
 ```
 
+If the hypervisor still doesn't connect check that you have disabled selinux/apparmor:
+- selinux (RH/CentOS/Fedora): setenforce 0. Edit /etc/selinux/config and set disabled there for next reboots
+- apparmor (Debian/Ubuntu): sudo ln -s /etc/apparmor.d/usr.sbin.libvirtd /etc/apparmor.d/disable/usr.sbin.libvirtd. And reboot
+
+If you see in the hypervisor details that the error is ssh key related then docker-compose down, rm -rf /opt/isard/sshkeys and docker-compose up -d again.
+
 # Viewers
 
 ## Tries to connect to localhost or incorrect IP/hostname

@@ -141,6 +141,22 @@ Hostname should be the IP/DNS reacheable from this IsardVDI installation. It cou
 
 Recommended to activate *disk operations* and *hypervisor* options and set web host to this web installation IP/DNS host and video proxy to the IP/DNS externally reacheable for the hypervisor (access to their viewers through ports 80 and 443). Set hypervisor hostname from video proxy to isard-hypervisor as it is the container name for hypervisor defaults.
 
+# VLANS in hypervisor
+
+To connect a trunk interface with vlan definitions inside the hypervisor you have to set (and uncomment) variables in your isardvdi.conf:
+
+- **HYPERVISOR_HOST_TRUNK_INTERFACE:** This is the host network trunk interface name as seen in the host. For example: eth1
+
+  If you don't set HYPERVISOR_STATIC_VLANS the hypervisor will auto detect vlans for 260 seconds each time it starts isard-hypervisor container. So, it is better to define the static vlans you know are in the trunk.
+
+- **HYPERVISOR_STATIC_VLANS**: Set a list of vlan numbers comma separated. Setting this will avoid autodetecting vlans for 260 seconds.
+
+This will add into the database the found vlans as 'vXXX' where XXX is the vlan number found. For this to work you should check that STATS_RETHINKDB_HOST can be reached at port 28015 from the hypervisor.
+
+Check that you have the correct hostname for the one holding the isard-db. This is only needed if you have the hypervisor in another machine:
+
+- **STATS_RETHINKDB_HOST**: Set it to your correct isard-db host if you have the hypervisor in another machine. Not needed if you have an 'all-in-one' IsardVDI.
+
 # Infrastructure concepts
 
 When you add an external hypervisor you should be aware (and configure as needed) of:
