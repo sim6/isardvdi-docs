@@ -51,7 +51,7 @@ egrep ‘(vmx|svm)’ /proc/cpuinfo
 To bring up IsardVDI you only need to download the docker-compose.yml file (or clone the full repo if you want to build the images yourself) and bring it up:
 
 ```bash
-wget https://raw.githubusercontent.com/isard-vdi/isard/master/docker-compose.yml
+wget https://isardvdi.com/docker-compose.yml
 docker-compose pull
 docker-compose up -d
 ```
