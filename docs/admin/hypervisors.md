@@ -143,7 +143,7 @@ Recommended to activate *disk operations* and *hypervisor* options and set web h
 
 # VLANS in hypervisor
 
-To connect a trunk interface with vlan definitions inside the hypervisor you have to set (and uncomment) variables in your isardvdi.conf:
+To connect a trunk interface with vlan definitions inside the hypervisor you have to set (and uncomment) variables in your isardvdi.cfg:
 
 **IMPORTANT NOTE**: Remember to rebuild the docker-compose by issuing the ./build.sh command again.
 
@@ -158,6 +158,8 @@ This will add into the database the found vlans as 'vXXX' where XXX is the vlan 
 Check that you have the correct hostname for the one holding the isard-db. This is only needed if you have the hypervisor in another machine:
 
 - **STATS_RETHINKDB_HOST**: Set it to your correct isard-db host if you have the hypervisor in another machine. Not needed if you have an 'all-in-one' IsardVDI.
+
+NOTE: The host interface should be in promiscous mode: *ip link set dev ethX promic on*. If the isard-hypervisor container is started you have to stop it and start it again.
 
 # Infrastructure concepts
 
