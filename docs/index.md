@@ -11,7 +11,7 @@ Get the docker-compose file and bring it up:
 (You may edit **isardvdi.conf** parameters file prior to bringing up IsardVDI and adapt it to your installation. By default IsardVDI will start with self-signed certificate if no *letsencrypt* parameters defined in isardvdi.conf file.)
 
 ```bash
-wget https://raw.githubusercontent.com/isard-vdi/isard/master/docker-compose.yml.example
+wget https://isardvdi.com/docker-compose.yml
 docker-compose pull
 docker-compose up -d
 ```
