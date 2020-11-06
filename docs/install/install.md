@@ -124,7 +124,7 @@ IsardVDI will create following paths on your system and map it inside hypervisor
 
 ## Build your docker images
 
-If you prefer to build your IsardVDI alpine based docker images you have to clone the full repository (git clone https://github.com/isard-vdi/isard.git) and you will find the docker sources under docker folder:
+If you prefer to build your IsardVDI alpine based docker images you have to clone the full repository (git clone https://gitlab.com/isard/isardvdi.git) and you will find the docker sources under docker folder:
 
 After building images from source you can start it with ```docker-compose up -d```.
 

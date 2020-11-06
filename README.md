@@ -4,4 +4,4 @@
 https://isardvdi.readthedocs.io/en/latest/
 
 ## Sources
-https://github.com/isard-vdi/isard
+https://gitlab.com/isard/isardvdi-docs
